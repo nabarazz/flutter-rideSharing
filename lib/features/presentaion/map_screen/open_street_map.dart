@@ -3,20 +3,16 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
-// void main() {
-//   runApp(const OpenStressMap());
-// }
-
-class OpenStressMap extends StatefulWidget {
-  const OpenStressMap({Key? key}) : super(key: key);
+class OpenStressMapScreen extends StatefulWidget {
+  const OpenStressMapScreen({Key? key}) : super(key: key);
 
   @override
-  _OpenStressMapState createState() => _OpenStressMapState();
+  _OpenStressMapScreenState createState() => _OpenStressMapScreenState();
 }
 
 final LatLng nepal = LatLng(28.3949, 84.1240);
 
-class _OpenStressMapState extends State<OpenStressMap> {
+class _OpenStressMapScreenState extends State<OpenStressMapScreen> {
   late final MapController _mapController;
   final double _rotation = 0;
   late LocationData _currentPosition;
@@ -85,29 +81,29 @@ class _OpenStressMapState extends State<OpenStressMap> {
   }
 
   getLoc() async {
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
         return;
       }
     }
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
     _currentPosition = await location.getLocation();
     print(_currentPosition);
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }

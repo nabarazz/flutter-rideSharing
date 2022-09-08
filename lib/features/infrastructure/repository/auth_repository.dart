@@ -46,6 +46,7 @@ class AuthRepository implements IAuthRepository {
       );
       final parsed = json.decode(response.body);
       final result = LoginResponse.fromJson(parsed as Map<String, dynamic>);
+      log(parsed.toString());
       return Left(result);
     } catch (e) {
       log(e.toString());
