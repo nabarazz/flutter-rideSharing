@@ -23,11 +23,13 @@ class _OpenStressMapState extends State<OpenStressMap> {
 
   Location location = Location();
   LatLng _initialcameraposition = LatLng(0.5937, 0.9629);
+  // destination location
+  LatLng _destination = LatLng(0.6441, 0.9629);
 
   @override
   void initState() {
     super.initState();
-    getLoc();
+
   }
 
   void _onMapCreated(MapController controller) {
@@ -78,9 +80,33 @@ class _OpenStressMapState extends State<OpenStressMap> {
                       ),
                     ),
               ),
+              //dynamic marker
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: nepal,
+                builder: (ctx) =>
+                    Container(
+                      child: IconButton(
+                        icon: Icon(Icons.location_on),
+                        color: Colors.red,
+                        iconSize: 45.0,
+                        onPressed: () {},
+                      ),
+                    ),
+              ),
             ],
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            getLoc();
+
+          });
+        },
+        child: const Icon(Icons.gps_fixed_rounded),
       ),
     );
   }
@@ -96,6 +122,7 @@ class _OpenStressMapState extends State<OpenStressMap> {
         return;
       }
     }
+
     _permissionGranted = await location.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
@@ -112,10 +139,14 @@ class _OpenStressMapState extends State<OpenStressMap> {
         return;
       }
     }
+    _destination = (await location.getLocation()) as LatLng;
+    print(_destination);
+
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _initialcameraposition =
             LatLng(_currentPosition.latitude!, _currentPosition.longitude!);
+        _mapController.move(_initialcameraposition, _mapController.zoom);
       });
     });
   }
