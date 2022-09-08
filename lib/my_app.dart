@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ridesharingv1/features/login_screen/login_screen.dart';
+import 'package:ridesharingv1/features/presentaion/login_screen/login_screen.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
