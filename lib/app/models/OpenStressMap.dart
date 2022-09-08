@@ -18,7 +18,7 @@ final LatLng nepal = LatLng(28.3949, 84.1240);
 
 class _OpenStressMapState extends State<OpenStressMap> {
   late final MapController _mapController;
-  double _rotation = 0;
+  final double _rotation = 0;
   late LocationData _currentPosition;
 
   Location location = Location();
@@ -68,15 +68,14 @@ class _OpenStressMapState extends State<OpenStressMap> {
                 width: 80.0,
                 height: 80.0,
                 point: _initialcameraposition,
-                builder: (ctx) =>
-                    Container(
-                      child: IconButton(
-                        icon: Icon(Icons.location_on),
-                        color: Colors.red,
-                        iconSize: 45.0,
-                        onPressed: () {},
-                      ),
-                    ),
+                builder: (ctx) => Container(
+                  child: IconButton(
+                    icon: const Icon(Icons.location_on),
+                    color: Colors.red,
+                    iconSize: 45.0,
+                    onPressed: () {},
+                  ),
+                ),
               ),
             ],
           ),
@@ -112,11 +111,14 @@ class _OpenStressMapState extends State<OpenStressMap> {
         return;
       }
     }
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        _initialcameraposition =
-            LatLng(_currentPosition.latitude!, _currentPosition.longitude!);
-      });
-    });
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        setState(() {
+          _initialcameraposition =
+              LatLng(_currentPosition.latitude!, _currentPosition.longitude!);
+        });
+      },
+    );
   }
 }

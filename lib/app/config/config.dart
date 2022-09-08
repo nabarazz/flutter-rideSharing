@@ -79,4 +79,5 @@
 //   }
 // }
 
-String MAPBOX_ACCESS_TOKEN="pk.eyJ1IjoibmFicmF6Ymg5OTUiLCJhIjoiY2w2eWprZXZ4MHc5dDNjcGR3NHhsYnliaCJ9.YrC-YFkMAP6mTf3dABhHxA";
+String MAPBOX_ACCESS_TOKEN =
+    "pk.eyJ1IjoibmFicmF6Ymg5OTUiLCJhIjoiY2w2eWprZXZ4MHc5dDNjcGR3NHhsYnliaCJ9.YrC-YFkMAP6mTf3dABhHxA";

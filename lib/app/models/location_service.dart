@@ -14,7 +14,6 @@ class LocationService {
     var json = convert.jsonDecode(response.body);
 
     var placeId = json['candidates'][0]['place_id'] as String;
-    print(placeId);
     return placeId;
     // } else {
     //   throw Exception('Failed to load place id');
