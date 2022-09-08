@@ -7,6 +7,10 @@ import 'package:http/http.dart' as http;
 import 'package:ridesharingv1/app/failure.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_res.dart';
 
+final authRepository = Provider((ref) {
+  return AuthRepository(ref.read);
+});
+
 abstract class IAuthRepository {
   Future<Either<LoginResponse, Failure>> userLogin({
     required String username,
