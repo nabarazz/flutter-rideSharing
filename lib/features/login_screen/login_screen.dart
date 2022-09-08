@@ -1,4 +1,7 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,82 +13,105 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _usernameF = FocusNode();
+  final _passwordF = FocusNode();
 
   @override
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
+    _usernameF.dispose();
+    _passwordF.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _mediaQuery = MediaQuery.of(context).size;
+    final mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('Login',
-              style: TextStyle(
-                color: Colors.black,
-              )),
+          child: Text(
+            'Login',
+          ),
         ),
       ),
-      body: Column(
-        children: [
-          SizedBox(height: _mediaQuery.height / 6),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'UserName',
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            SizedBox(height: mediaQuery.width / 6),
+            SvgPicture.asset(
+              'assets/images/login_screen_img.svg',
+              height: mediaQuery.height / 6,
+            ),
+            SizedBox(height: mediaQuery.width / 6),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                controller: _usernameController,
+                focusNode: _usernameF,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Username',
+                  labelStyle: TextStyle(fontSize: 14),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(16),
+                ),
+                onEditingComplete: () {
+                  FocusScope.of(context).requestFocus(_passwordF);
+                },
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-            child: TextField(
-              obscureText: true,
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                focusNode: _passwordF,
+                obscureText: true,
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Password',
+                  labelStyle: TextStyle(fontSize: 14),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(16),
+                ),
+                onEditingComplete: () {
+                  FocusScope.of(context).unfocus();
+                },
               ),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              //forgot password screen
-            },
-            child: const Text(
-              'Forgot Password',
+            TextButton(
+              onPressed: () {
+                //forgot password screen
+              },
+              child: const Text(
+                'Forgot Password',
+              ),
             ),
-          ),
-          Container(
-            height: 50,
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: ElevatedButton(
-              child: const Text('Login'),
+            ElevatedButton(
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Text('Login'),
+              ),
               onPressed: () {},
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('Does not have account?'),
-              TextButton(
-                child: const Text(
-                  'Sign in',
-                  style: TextStyle(fontSize: 20),
-                ),
-                onPressed: () {
-                  //signup screen
-                },
-              )
-            ],
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('Does not have account?'),
+                TextButton(
+                  child: const Text(
+                    'Sign in',
+                  ),
+                  onPressed: () {
+                    //signup screen
+                  },
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
