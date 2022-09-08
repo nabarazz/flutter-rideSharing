@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'Login/login.dart';
-import 'models/test_app.dart';
+import 'models/OpenStressMap.dart';
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
 
@@ -16,7 +16,7 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => const Login(),
-        '/TestApp': (context) => const TestApp(),
+        '/TestApp': (context) => OpenStressMap(),
       },
     );
 
