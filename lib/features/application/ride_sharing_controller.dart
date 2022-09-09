@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ridesharingv1/core/base_state/base_state.dart';
-import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_res.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
 import 'package:ridesharingv1/features/infrastructure/repository/auth_repository.dart';
 
 AuthController<T> authController<T>(Ref ref) {

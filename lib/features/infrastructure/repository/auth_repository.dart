@@ -5,7 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:ridesharingv1/app/failure.dart';
-import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_res.dart';
+import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
 
 final authRepository = Provider((ref) {
   return AuthRepository(ref.read);
@@ -21,8 +22,8 @@ abstract class IAuthRepository {
 class AuthRepository implements IAuthRepository {
   AuthRepository(Reader read) : _read = read;
 
-  // ignore: unused_field
   final Reader _read;
+  HiveDataSource get _localDb => _read(localDataSourceNotifier);
 
   @override
   Future<Either<LoginResponse, Failure>> userLogin({
@@ -46,6 +47,7 @@ class AuthRepository implements IAuthRepository {
       );
       final parsed = json.decode(response.body);
       final result = LoginResponse.fromJson(parsed as Map<String, dynamic>);
+      _localDb.cacheAuthResponse(result);
       log(parsed.toString());
       return Left(result);
     } catch (e) {
