@@ -42,6 +42,7 @@ class _OpenStressMapScreenState extends State<OpenStressMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const SizedBox(),
         title: const Text('Flutter Map'),
       ),
       body: FlutterMap(

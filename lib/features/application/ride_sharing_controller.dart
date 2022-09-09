@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ridesharingv1/core/base_state/base_state.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
-import 'package:ridesharingv1/features/infrastructure/entities/signup_req_res/signup_req_res.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/signup_request/signup_request.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/signup_response/signup_response.dart';
 import 'package:ridesharingv1/features/infrastructure/repository/auth_repository.dart';
 
 AuthController<T> authController<T>(Ref ref) {
@@ -35,15 +36,15 @@ class AuthController<T> extends StateNotifier<BaseState> {
   }
 
   Future<void> newUserSignUp({
-    required SignUpReqRes signUpReqRes,
+    required SignUpRequest signUpRequest,
   }) async {
     state = const BaseState.loading();
 
     final response = await _authRepository.userSignup(
-      signUpReqRes: signUpReqRes,
+      signUpRequest: signUpRequest,
     );
     state = response.fold(
-      (data) => BaseState<SignUpReqRes>.success(data: data),
+      (data) => BaseState<SignUpResponse>.success(data: data),
       (error) => BaseState.error(
         error,
       ),

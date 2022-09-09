@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 extension ContextExtForBaseState on BuildContext {
-  void showSnackBar(BuildContext context, String message, IconData icon) {
+  void showSnackBar(
+      BuildContext context, String message, IconData icon, Color color) {
     ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
         padding: const EdgeInsets.all(12),
@@ -10,7 +11,7 @@ extension ContextExtForBaseState on BuildContext {
           children: [
             Icon(
               icon,
-              color: Colors.green,
+              color: color,
             ),
             Text(message),
             const SizedBox(width: 15)

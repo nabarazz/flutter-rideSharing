@@ -57,6 +57,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             context,
             'Login in success',
             Icons.check_circle,
+            Colors.green,
           );
           _usernameController.clear();
           _passwordController.clear();
@@ -67,7 +68,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           );
         },
-        error: (_) {},
+        error: (fail) {
+          context.showSnackBar(
+            context,
+            fail.errorMessage,
+            Icons.check_circle,
+            Colors.green,
+          );
+        },
         orElse: () {},
       );
     });
@@ -167,7 +175,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     const Text('Does not have account?'),
                     TextButton(
                       child: const Text(
-                        'Sign in',
+                        'Sign up',
                       ),
                       onPressed: () {
                         Navigator.of(context).push(

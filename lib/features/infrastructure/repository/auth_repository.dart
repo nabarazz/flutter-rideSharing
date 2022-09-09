@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:ridesharingv1/app/failure.dart';
 import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
-import 'package:ridesharingv1/features/infrastructure/entities/signup_req_res/signup_req_res.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/signup_request/signup_request.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/signup_response/signup_response.dart';
 
 final authRepository = Provider((ref) {
   return AuthRepository(ref.read);
@@ -18,8 +19,8 @@ abstract class IAuthRepository {
     required String username,
     required String password,
   });
-  Future<Either<SignUpReqRes, Failure>> userSignup({
-    required SignUpReqRes signUpReqRes,
+  Future<Either<SignUpResponse, Failure>> userSignup({
+    required SignUpRequest signUpRequest,
   });
 }
 
@@ -58,7 +59,7 @@ class AuthRepository implements IAuthRepository {
       log(e.toString());
       return const Right(
         Failure(
-          errorMessage: 'Failed !!!',
+          errorMessage: 'Something wen wrong !',
           errorCode: '',
         ),
       );
@@ -66,22 +67,21 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<Either<SignUpReqRes, Failure>> userSignup({
-    required SignUpReqRes signUpReqRes,
+  Future<Either<SignUpResponse, Failure>> userSignup({
+    required SignUpRequest signUpRequest,
   }) async {
     try {
       final url = Uri.parse(
         'http://20.24.200.114:8003/api/sign_up/',
       );
       var requestBody = {
-        "username": signUpReqRes.username,
-        "password1": signUpReqRes.password1,
-        "password2": signUpReqRes.password2,
-        "email": signUpReqRes.email,
-        "first_name": signUpReqRes.first_name,
-        "last_name": signUpReqRes.last_name,
-        "group": signUpReqRes.group,
-        "photo": signUpReqRes.photo,
+        "username": signUpRequest.username,
+        "password1": signUpRequest.password1,
+        "password2": signUpRequest.password2,
+        "email": signUpRequest.email,
+        "first_name": signUpRequest.first_name,
+        "last_name": signUpRequest.last_name,
+        "group": signUpRequest.group,
       };
       final response = await http.post(
         url,
@@ -92,7 +92,7 @@ class AuthRepository implements IAuthRepository {
       );
       final parsed = json.decode(response.body);
       log(parsed.toString());
-      final result = SignUpReqRes.fromJson(parsed as Map<String, dynamic>);
+      final result = SignUpResponse.fromJson(parsed as Map<String, dynamic>);
       _localDb.cacheAuthResponse(
         LoginResponse(
           refresh: '',
@@ -104,10 +104,9 @@ class AuthRepository implements IAuthRepository {
       );
       return Left(result);
     } catch (e) {
-      log(e.toString());
       return const Right(
         Failure(
-          errorMessage: 'Failed !!!',
+          errorMessage: 'Something wen wrong !',
           errorCode: '',
         ),
       );
