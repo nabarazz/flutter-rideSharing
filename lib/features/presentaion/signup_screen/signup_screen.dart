@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ridesharingv1/core/base_state/base_state.dart';
+import 'package:ridesharingv1/core/extension/snack_bar_extension.dart';
+import 'package:ridesharingv1/features/application/ride_sharing_controller.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/signup_req_res/signup_req_res.dart';
+import 'package:ridesharingv1/features/presentaion/map_screen/open_street_map.dart';
+
+final _signupController = StateNotifierProvider<AuthController, BaseState>(
+  authController,
+);
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -16,14 +25,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _emailControlelr = TextEditingController();
   final _firstNameControlelr = TextEditingController();
   final _lastNameControlelr = TextEditingController();
-  final _userGroupControlelr = TextEditingController();
   final _userNameFocusNode = FocusNode();
   final _pass1FocusNode = FocusNode();
   final _pass2FocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _userFirstNameFocusNode = FocusNode();
   final _userLastNameFocusNode = FocusNode();
-  final _userGroupFocusNode = FocusNode();
+
+  late String selectedGroup = '';
 
   @override
   void dispose() {
@@ -33,20 +42,55 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     _emailControlelr.dispose();
     _firstNameControlelr.dispose();
     _lastNameControlelr.dispose();
-    _userGroupControlelr.dispose();
     _userNameFocusNode.dispose();
     _pass1FocusNode.dispose();
     _pass2FocusNode.dispose();
     _emailFocusNode.dispose();
     _userFirstNameFocusNode.dispose();
     _userLastNameFocusNode.dispose();
-    _userGroupFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
+    ref.listen<BaseState<dynamic>>(_signupController, (oldState, state) {
+      state.maybeWhen(
+        loading: () {
+          showDialog(
+            context: context,
+            builder: (context) => Container(
+              height: 20,
+              width: 20,
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(),
+            ),
+          );
+        },
+        success: (dynamic _) async {
+          context.showSnackBar(
+            context,
+            'User registered',
+            Icons.check_circle,
+          );
+          _userNameControlelr.clear();
+          _pass1Controlelr.clear();
+          _pass2Controlelr.clear();
+          _emailControlelr.clear();
+          _firstNameControlelr.clear();
+          _lastNameControlelr.clear();
+
+          Navigator.of(context).pop();
+          await Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (_) => const OpenStressMapScreen(),
+            ),
+          );
+        },
+        error: (_) {},
+        orElse: () {},
+      );
+    });
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -201,32 +245,55 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  focusNode: _userGroupFocusNode,
-                  controller: _userGroupControlelr,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'User Group',
-                    labelStyle: TextStyle(fontSize: 14),
-                    isDense: true,
-                    contentPadding: EdgeInsets.all(16),
+              const SizedBox(height: 10),
+              const Text('Select User group'),
+              Row(
+                children: [
+                  SizedBox(
+                    width: mediaQuery.width / 2.5,
+                    child: RadioListTile(
+                      title: const Text('User'),
+                      value: 'user',
+                      groupValue: selectedGroup,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedGroup = value.toString();
+                        });
+                      },
+                    ),
                   ),
-                  onEditingComplete: () {
-                    FocusScope.of(context).unfocus();
-                  },
-                  validator: (String? value) {
-                    if (value!.isEmpty) {
-                      return 'User group is empty';
-                    }
-                    return null;
-                  },
-                ),
+                  SizedBox(
+                    width: mediaQuery.width / 2.5,
+                    child: RadioListTile(
+                      title: const Text('Rider'),
+                      value: 'driver',
+                      groupValue: selectedGroup,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedGroup = value.toString();
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final data = SignUpReqRes(
+                    username: _userNameControlelr.text.trim(),
+                    password1: _pass1Controlelr.text.trim(),
+                    password2: _pass2Controlelr.text.trim(),
+                    email: _emailControlelr.text.trim(),
+                    first_name: _firstNameControlelr.text.trim(),
+                    last_name: _lastNameControlelr.text.trim(),
+                    group: selectedGroup,
+                    photo: null,
+                  );
+                  ref
+                      .read(_signupController.notifier)
+                      .newUserSignUp(signUpReqRes: data);
+                },
                 child: const Text('Sign up'),
               ),
               const SizedBox(height: 20),
