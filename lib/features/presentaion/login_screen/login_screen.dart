@@ -7,6 +7,7 @@ import 'package:ridesharingv1/core/base_state/base_state.dart';
 import 'package:ridesharingv1/core/extension/snack_bar_extension.dart';
 import 'package:ridesharingv1/features/application/ride_sharing_controller.dart';
 import 'package:ridesharingv1/features/presentaion/map_screen/open_street_map.dart';
+import 'package:ridesharingv1/features/presentaion/signup_screen/signup_screen.dart';
 
 final _authController = StateNotifierProvider<AuthController, BaseState>(
   authController,
@@ -169,7 +170,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         'Sign in',
                       ),
                       onPressed: () {
-                        //signup screen
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const SignupScreen(),
+                          ),
+                        );
                       },
                     )
                   ],
