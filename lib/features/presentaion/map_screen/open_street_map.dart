@@ -171,8 +171,10 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                         ),
                         barrierColor: Colors.transparent,
                         context: context,
+                        elevation: 10,
+                        isScrollControlled: true,
                         builder: (context) {
-                          return showCustomDialog(
+                          return showBottomSheet(
                             context,
                             mediaQuery,
                             currentL: _currentLController,
@@ -212,7 +214,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   }
 }
 
-Widget showCustomDialog(
+Widget showBottomSheet(
   BuildContext context,
   Size size, {
   required TextEditingController currentL,
@@ -228,64 +230,102 @@ Widget showCustomDialog(
     ),
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20, top: 20),
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).pop();
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20, top: 20),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Icon(Icons.arrow_back),
+                  ),
+                  SizedBox(width: size.width / 4.3),
+                  Text(
+                    'Select Location'.toUpperCase(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            TextFormField(
+              controller: currentL,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'Current Location',
+                labelStyle: TextStyle(fontSize: 14),
+                isDense: true,
+                contentPadding: EdgeInsets.all(14),
+              ),
+              validator: (String? value) {
+                if (value!.isEmpty) {
+                  return 'Current location is empty';
+                }
+                return null;
               },
-              child: const Icon(Icons.arrow_back),
             ),
-          ),
-          TextFormField(
-            controller: currentL,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(
-                Icons.location_on,
-                color: Colors.red,
+            const SizedBox(height: 15),
+            TextFormField(
+              autofocus: true,
+              controller: searchL,
+              decoration: const InputDecoration(
+                prefixIcon: Icon(
+                  Icons.location_on,
+                  color: Colors.blue,
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'Searched Location',
+                labelStyle: TextStyle(fontSize: 14),
+                isDense: true,
+                contentPadding: EdgeInsets.all(14),
               ),
-              border: OutlineInputBorder(),
-              labelText: 'Current Location',
-              labelStyle: TextStyle(fontSize: 14),
-              isDense: true,
-              contentPadding: EdgeInsets.all(14),
+              onEditingComplete: () {
+                FocusScope.of(context).unfocus();
+              },
+              validator: (String? value) {
+                if (value!.isEmpty) {
+                  return 'Searched location is empty';
+                }
+                return null;
+              },
             ),
-            validator: (String? value) {
-              if (value!.isEmpty) {
-                return 'Current location is empty';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 15),
-          TextFormField(
-            autofocus: true,
-            controller: searchL,
-            decoration: const InputDecoration(
-              prefixIcon: Icon(
-                Icons.location_on,
-                color: Colors.blue,
+            const SizedBox(height: 30),
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: size.width * 0.62,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Confirm Location'.toUpperCase(),
+                        ),
+                        const SizedBox(width: 10),
+                        const Icon(Icons.location_on)
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              border: OutlineInputBorder(),
-              labelText: 'Searched Location',
-              labelStyle: TextStyle(fontSize: 14),
-              isDense: true,
-              contentPadding: EdgeInsets.all(14),
-            ),
-            onEditingComplete: () {
-              FocusScope.of(context).unfocus();
-            },
-            validator: (String? value) {
-              if (value!.isEmpty) {
-                return 'Searched location is empty';
-              }
-              return null;
-            },
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     ),
   );
