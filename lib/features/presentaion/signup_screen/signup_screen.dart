@@ -114,149 +114,135 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   height: mediaQuery.height / 6,
                 ),
                 SizedBox(height: mediaQuery.width / 7),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _userNameFocusNode,
-                    controller: _userNameControlelr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context).requestFocus(_pass1FocusNode);
-                    },
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Username is empty';
-                      }
-                      return null;
-                    },
+                TextFormField(
+                  focusNode: _userNameFocusNode,
+                  controller: _userNameControlelr,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Username',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(_pass1FocusNode);
+                  },
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Username is empty';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _pass1FocusNode,
-                    controller: _pass1Controlelr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    obscureText: true,
-                    onEditingComplete: () {
-                      FocusScope.of(context).requestFocus(_pass2FocusNode);
-                    },
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Password is empty';
-                      }
-                      return null;
-                    },
+                const SizedBox(height: 12),
+                TextFormField(
+                  focusNode: _pass1FocusNode,
+                  controller: _pass1Controlelr,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  obscureText: true,
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(_pass2FocusNode);
+                  },
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Password is empty';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _pass2FocusNode,
-                    controller: _pass2Controlelr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Confirm password',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    obscureText: true,
-                    onEditingComplete: () {
-                      FocusScope.of(context).requestFocus(_emailFocusNode);
-                    },
-                    validator: (String? value) {
-                      if (value != _pass1Controlelr.text) {
-                        return 'Password did not match';
-                      }
-                      return null;
-                    },
+                const SizedBox(height: 12),
+                TextFormField(
+                  focusNode: _pass2FocusNode,
+                  controller: _pass2Controlelr,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Confirm password',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  obscureText: true,
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(_emailFocusNode);
+                  },
+                  validator: (String? value) {
+                    if (value != _pass1Controlelr.text) {
+                      return 'Password did not match';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _emailFocusNode,
-                    controller: _emailControlelr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '...@gamil.com',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context)
-                          .requestFocus(_userFirstNameFocusNode);
-                    },
-                    validator: (String? value) {
-                      final regex = RegExp(
-                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-                      if (!regex.hasMatch(value!)) {
-                        return 'Email invalid';
-                      }
-                      return null;
-                    },
+                const SizedBox(height: 12),
+                TextFormField(
+                  focusNode: _emailFocusNode,
+                  controller: _emailControlelr,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: '...@gamil.com',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  onEditingComplete: () {
+                    FocusScope.of(context)
+                        .requestFocus(_userFirstNameFocusNode);
+                  },
+                  validator: (String? value) {
+                    final regex = RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                    if (!regex.hasMatch(value!)) {
+                      return 'Email invalid';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _userFirstNameFocusNode,
-                    controller: _firstNameControlelr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'First name',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context)
-                          .requestFocus(_userLastNameFocusNode);
-                    },
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'First name is empty';
-                      }
-                      return null;
-                    },
+                const SizedBox(height: 12),
+                TextFormField(
+                  focusNode: _userFirstNameFocusNode,
+                  controller: _firstNameControlelr,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'First name',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(_userLastNameFocusNode);
+                  },
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'First name is empty';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _userLastNameFocusNode,
-                    controller: _lastNameControlelr,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Last name',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Last name is empty';
-                      }
-                      return null;
-                    },
+                const SizedBox(height: 12),
+                TextFormField(
+                  focusNode: _userLastNameFocusNode,
+                  controller: _lastNameControlelr,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Last name',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  onEditingComplete: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Last name is empty';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 const Text('Select User group'),

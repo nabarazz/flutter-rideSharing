@@ -28,7 +28,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         userResponse.username.isNotEmpty) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => const OpenStressMapScreen(),
+          builder: (_) => const OpenStreetMapScreen(),
         ),
       );
     } else {

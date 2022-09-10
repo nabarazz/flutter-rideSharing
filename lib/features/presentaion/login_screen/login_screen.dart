@@ -64,7 +64,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           Navigator.of(context).pop();
           await Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (_) => const OpenStressMapScreen(),
+              builder: (_) => const OpenStreetMapScreen(),
             ),
           );
         },
@@ -100,52 +100,46 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   height: mediaQuery.height / 6,
                 ),
                 SizedBox(height: mediaQuery.width / 6),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    controller: _usernameController,
-                    focusNode: _usernameF,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context).requestFocus(_passwordF);
-                    },
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Username is empty';
-                      }
-                      return null;
-                    },
+                TextFormField(
+                  controller: _usernameController,
+                  focusNode: _usernameF,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Username',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(_passwordF);
+                  },
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Username is empty';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    focusNode: _passwordF,
-                    obscureText: true,
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(fontSize: 14),
-                      isDense: true,
-                      contentPadding: EdgeInsets.all(16),
-                    ),
-                    onEditingComplete: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Password is empty';
-                      }
-                      return null;
-                    },
+                TextFormField(
+                  focusNode: _passwordF,
+                  obscureText: true,
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                    labelStyle: TextStyle(fontSize: 14),
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(14),
                   ),
+                  onEditingComplete: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  validator: (String? value) {
+                    if (value!.isEmpty) {
+                      return 'Password is empty';
+                    }
+                    return null;
+                  },
                 ),
                 TextButton(
                   onPressed: () {
