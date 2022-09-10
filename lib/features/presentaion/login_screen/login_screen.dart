@@ -90,7 +90,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(25),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -120,6 +120,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     return null;
                   },
                 ),
+                const SizedBox(height: 14),
                 TextFormField(
                   focusNode: _passwordF,
                   obscureText: true,

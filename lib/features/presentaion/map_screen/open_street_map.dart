@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:geocode/geocode.dart';
+import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
+import 'package:ridesharingv1/features/presentaion/settings/seting_screen.dart';
 
 class OpenStreetMapScreen extends ConsumerStatefulWidget {
   const OpenStreetMapScreen({Key? key}) : super(key: key);
@@ -32,23 +33,27 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
 
   @override
   void initState() {
-    super.initState();
-    getLoc();
     _currentAddress = ValueNotifier('');
+    fetchData();
+    super.initState();
   }
 
-  void getAddress() async {
-    // await Future.delayed(const Duration(seconds: 10));
-    GeoCode geoCode = GeoCode();
-    final addrss = await geoCode.reverseGeocoding(
-      latitude: _currentPosition.latitude ?? 0.0,
-      longitude: _currentPosition.longitude ?? 0.0,
+  void fetchData() async {
+    await getLoc();
+    await getAddress();
+  }
+
+  Future<void> getAddress() async {
+    List<geocoding.Placemark> placemarks =
+        await geocoding.placemarkFromCoordinates(
+      _currentPosition.latitude ?? 0.0,
+      _currentPosition.longitude ?? 0.0,
     );
-    final city1 = '${addrss.timezone?.split('/').last}';
+    final userCL = placemarks[0];
     final userCurrentAddress =
-        '$city1-${addrss.streetNumber}, ${addrss.streetAddress}-${addrss.region}.';
-    _currentAddress.value = userCurrentAddress;
+        '${userCL.thoroughfare}, Street:${userCL.street}, ${userCL.locality}-${userCL.country}.';
     log(userCurrentAddress);
+    _currentAddress.value = userCurrentAddress;
   }
 
   void _onMapCreated(MapController controller) {
@@ -69,7 +74,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
     loginResponse = localStorage!;
   }
 
-  getLoc() async {
+  Future<void> getLoc() async {
     bool serviceEnabled;
     PermissionStatus permissionGranted;
 
@@ -104,7 +109,6 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
         });
       },
     );
-    getAddress();
   }
 
   @override
@@ -123,7 +127,13 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
         title: const Text('Ride Sharing'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => const SettingScreen(),
+                ),
+              );
+            },
             icon: const Icon(Icons.settings),
           )
         ],

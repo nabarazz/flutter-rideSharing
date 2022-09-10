@@ -19,4 +19,12 @@ class HiveDataSource extends ChangeNotifier {
     getBox.close();
     return authRes;
   }
+
+  Future<void> clearCacheData() async {
+    final getBox = await Hive.openBox<LoginResponse>('AUTH_RESPONSE_BOX');
+    const data =
+        LoginResponse(refresh: '', access: '', username: '', email: '', id: 0);
+    getBox.put('authResponse', data);
+    cacheAuthResponse(data);
+  }
 }
