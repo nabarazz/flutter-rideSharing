@@ -5,7 +5,6 @@ import 'package:ridesharingv1/core/base_state/base_state.dart';
 import 'package:ridesharingv1/core/extension/snack_bar_extension.dart';
 import 'package:ridesharingv1/features/application/ride_sharing_controller.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/signup_request/signup_request.dart';
-import 'package:ridesharingv1/features/presentaion/map_screen/open_street_map.dart';
 
 final _signupController = StateNotifierProvider<AuthController, BaseState>(
   authController,
@@ -75,11 +74,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             Icons.check_circle,
             Colors.green,
           );
-          Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => const OpenStressMapScreen()),
-              (route) => false);
-
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           _userNameControlelr.clear();
           _pass1Controlelr.clear();
           _pass2Controlelr.clear();

@@ -93,15 +93,15 @@ class AuthRepository implements IAuthRepository {
       final parsed = json.decode(response.body);
       log(parsed.toString());
       final result = SignUpResponse.fromJson(parsed as Map<String, dynamic>);
-      _localDb.cacheAuthResponse(
-        LoginResponse(
-          refresh: '',
-          access: '',
-          username: result.username,
-          email: result.email,
-          id: result.id,
-        ),
-      );
+      // _localDb.cacheAuthResponse(
+      //   LoginResponse(
+      //     refresh: '',
+      //     access: '',
+      //     username: result.username,
+      //     email: result.email,
+      //     id: result.id,
+      //   ),
+      // );
       return Left(result);
     } catch (e) {
       return const Right(
