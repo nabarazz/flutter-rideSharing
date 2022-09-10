@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:geocode/geocode.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
@@ -27,11 +28,27 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   late LoginResponse loginResponse;
   final _searchedLController = TextEditingController();
   final _currentLController = TextEditingController();
+  ValueNotifier<String> _currentAddress = ValueNotifier('');
 
   @override
   void initState() {
     super.initState();
     getLoc();
+    _currentAddress = ValueNotifier('');
+  }
+
+  void getAddress() async {
+    // await Future.delayed(const Duration(seconds: 10));
+    GeoCode geoCode = GeoCode();
+    final addrss = await geoCode.reverseGeocoding(
+      latitude: _currentPosition.latitude ?? 0.0,
+      longitude: _currentPosition.longitude ?? 0.0,
+    );
+    final city1 = '${addrss.timezone?.split('/').last}';
+    final userCurrentAddress =
+        '$city1-${addrss.streetNumber}, ${addrss.streetAddress}-${addrss.region}.';
+    _currentAddress.value = userCurrentAddress;
+    log(userCurrentAddress);
   }
 
   void _onMapCreated(MapController controller) {
@@ -87,6 +104,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
         });
       },
     );
+    getAddress();
   }
 
   @override
@@ -146,64 +164,73 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
             ],
           ),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+            height: 130,
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              padding: const EdgeInsets.only(bottom: 20, top: 10),
+              child: Column(
                 children: [
-                  const Icon(
-                    Icons.location_on,
-                    color: Colors.red,
+                  Text(
+                    _currentAddress.value,
+                    style: const TextStyle(fontSize: 12),
                   ),
-                  InkWell(
-                    onTap: () {
-                      log('message');
-                      showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ),
-                        ),
-                        barrierColor: Colors.transparent,
-                        context: context,
-                        elevation: 10,
-                        isScrollControlled: true,
-                        builder: (context) {
-                          return showBottomSheet(
-                            context,
-                            mediaQuery,
-                            currentL: _currentLController,
-                            searchL: _searchedLController,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.red,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(25),
+                                topRight: Radius.circular(25),
+                              ),
+                            ),
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            elevation: 10,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return ShowBSheet(
+                                userCurrentL: _currentAddress.value,
+                                currentL: _currentLController,
+                                searchL: _searchedLController,
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: mediaQuery.width / 7,
-                          vertical: 12,
-                        ),
-                        child: const Text(
-                          'Search Destination',
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: mediaQuery.width / 7,
+                              vertical: 12,
+                            ),
+                            child: const Text(
+                              'Search Destination',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                      const Icon(Icons.local_taxi),
+                    ],
                   ),
-                  const Icon(Icons.local_taxi),
                 ],
               ),
             ),
@@ -214,119 +241,141 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   }
 }
 
-Widget showBottomSheet(
-  BuildContext context,
-  Size size, {
-  required TextEditingController currentL,
-  required TextEditingController searchL,
-}) {
-  return Container(
-    height: size.height * 0.8,
-    decoration: const BoxDecoration(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(25),
-        topRight: Radius.circular(25),
-      ),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20, top: 20),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Icon(Icons.arrow_back),
-                  ),
-                  SizedBox(width: size.width / 4.3),
-                  Text(
-                    'Select Location'.toUpperCase(),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            TextFormField(
-              controller: currentL,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                ),
-                border: OutlineInputBorder(),
-                labelText: 'Current Location',
-                labelStyle: TextStyle(fontSize: 14),
-                isDense: true,
-                contentPadding: EdgeInsets.all(14),
-              ),
-              validator: (String? value) {
-                if (value!.isEmpty) {
-                  return 'Current location is empty';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 15),
-            TextFormField(
-              autofocus: true,
-              controller: searchL,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(
-                  Icons.location_on,
-                  color: Colors.blue,
-                ),
-                border: OutlineInputBorder(),
-                labelText: 'Searched Location',
-                labelStyle: TextStyle(fontSize: 14),
-                isDense: true,
-                contentPadding: EdgeInsets.all(14),
-              ),
-              onEditingComplete: () {
-                FocusScope.of(context).unfocus();
-              },
-              validator: (String? value) {
-                if (value!.isEmpty) {
-                  return 'Searched location is empty';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 30),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: size.width * 0.62,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          'Confirm Location'.toUpperCase(),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(Icons.location_on)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            )
-          ],
+class ShowBSheet extends ConsumerStatefulWidget {
+  const ShowBSheet({
+    Key? key,
+    required this.currentL,
+    required this.searchL,
+    required this.userCurrentL,
+  }) : super(key: key);
+
+  final TextEditingController currentL;
+  final TextEditingController searchL;
+  final String userCurrentL;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _ShowBSheetState();
+}
+
+class _ShowBSheetState extends ConsumerState<ShowBSheet> {
+  late String _currentLocation;
+  @override
+  void initState() {
+    _currentLocation = widget.userCurrentL;
+    widget.currentL.text = _currentLocation;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * 0.8,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
         ),
       ),
-    ),
-  );
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20, top: 20),
+                child: Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Icon(Icons.arrow_back),
+                    ),
+                    SizedBox(width: size.width / 4.3),
+                    Text(
+                      'Select Location'.toUpperCase(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Icon(
+                      Icons.location_on,
+                      color: Colors.red,
+                    ),
+                  ],
+                ),
+              ),
+              TextFormField(
+                style: const TextStyle(fontSize: 12),
+                controller: widget.currentL,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Current Location',
+                  labelStyle: TextStyle(fontSize: 14),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(18),
+                ),
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Current location is empty';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 15),
+              TextFormField(
+                autofocus: true,
+                style: const TextStyle(fontSize: 12),
+                controller: widget.searchL,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Searched Location',
+                  labelStyle: TextStyle(fontSize: 14),
+                  isDense: true,
+                  contentPadding: EdgeInsets.all(18),
+                ),
+                onEditingComplete: () {
+                  FocusScope.of(context).unfocus();
+                },
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'Searched location is empty';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 30),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: size.width * 0.62,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 15,
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Confirm Location'.toUpperCase(),
+                          ),
+                          const SizedBox(width: 10),
+                          const Icon(Icons.location_on)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
