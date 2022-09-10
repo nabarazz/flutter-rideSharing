@@ -68,33 +68,34 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
             ),
           );
         },
-        success: (dynamic _) async {
+        success: (_) async {
           context.showSnackBar(
             context,
             'User registered',
             Icons.check_circle,
             Colors.green,
           );
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => const OpenStressMapScreen()),
+              (route) => false);
+
           _userNameControlelr.clear();
           _pass1Controlelr.clear();
           _pass2Controlelr.clear();
           _emailControlelr.clear();
           _firstNameControlelr.clear();
           _lastNameControlelr.clear();
-          Navigator.of(context).pop();
-          await Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (_) => const OpenStressMapScreen(),
-            ),
-          );
         },
         error: (fail) {
-          context.showSnackBar(
-            context,
-            fail.errorMessage,
-            Icons.error,
-            Colors.red,
-          );
+          Future.delayed(const Duration(milliseconds: 100), () {
+            context.showSnackBar(
+              context,
+              fail.errorMessage,
+              Icons.error,
+              Colors.red,
+            );
+          }).then((value) => Navigator.of(context).pop);
         },
         orElse: () {},
       );
@@ -302,20 +303,20 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    // if (_formKey.currentState!.validate()) {
-                    final data = SignUpRequest(
-                      username: _userNameControlelr.text.trim(),
-                      password1: _pass1Controlelr.text.trim(),
-                      password2: _pass2Controlelr.text.trim(),
-                      email: _emailControlelr.text.trim(),
-                      first_name: _firstNameControlelr.text.trim(),
-                      last_name: _lastNameControlelr.text.trim(),
-                      group: selectedGroup,
-                    );
-                    ref
-                        .read(_signupController.notifier)
-                        .newUserSignUp(signUpRequest: data);
-                    // }
+                    if (_formKey.currentState!.validate()) {
+                      final data = SignUpRequest(
+                        username: _userNameControlelr.text.trim(),
+                        password1: _pass1Controlelr.text.trim(),
+                        password2: _pass2Controlelr.text.trim(),
+                        email: _emailControlelr.text.trim(),
+                        first_name: _firstNameControlelr.text.trim(),
+                        last_name: _lastNameControlelr.text.trim(),
+                        group: selectedGroup,
+                      );
+                      ref
+                          .read(_signupController.notifier)
+                          .newUserSignUp(signUpRequest: data);
+                    }
                   },
                   child: const Text('Sign up'),
                 ),
