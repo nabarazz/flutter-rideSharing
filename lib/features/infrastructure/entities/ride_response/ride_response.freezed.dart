@@ -24,8 +24,8 @@ mixin _$RideResponse {
   Driver get driver => throw _privateConstructorUsedError;
   String get created => throw _privateConstructorUsedError;
   String get updated => throw _privateConstructorUsedError;
-  String get pickUpAddress => throw _privateConstructorUsedError;
-  String get dropOffAddress => throw _privateConstructorUsedError;
+  String get pick_up_address => throw _privateConstructorUsedError;
+  String get drop_off_address => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   Passenger get passenger => throw _privateConstructorUsedError;
@@ -46,8 +46,8 @@ abstract class $RideResponseCopyWith<$Res> {
       Driver driver,
       String created,
       String updated,
-      String pickUpAddress,
-      String dropOffAddress,
+      String pick_up_address,
+      String drop_off_address,
       String price,
       String status,
       Passenger passenger});
@@ -70,8 +70,8 @@ class _$RideResponseCopyWithImpl<$Res> implements $RideResponseCopyWith<$Res> {
     Object? driver = freezed,
     Object? created = freezed,
     Object? updated = freezed,
-    Object? pickUpAddress = freezed,
-    Object? dropOffAddress = freezed,
+    Object? pick_up_address = freezed,
+    Object? drop_off_address = freezed,
     Object? price = freezed,
     Object? status = freezed,
     Object? passenger = freezed,
@@ -93,13 +93,13 @@ class _$RideResponseCopyWithImpl<$Res> implements $RideResponseCopyWith<$Res> {
           ? _value.updated
           : updated // ignore: cast_nullable_to_non_nullable
               as String,
-      pickUpAddress: pickUpAddress == freezed
-          ? _value.pickUpAddress
-          : pickUpAddress // ignore: cast_nullable_to_non_nullable
+      pick_up_address: pick_up_address == freezed
+          ? _value.pick_up_address
+          : pick_up_address // ignore: cast_nullable_to_non_nullable
               as String,
-      dropOffAddress: dropOffAddress == freezed
-          ? _value.dropOffAddress
-          : dropOffAddress // ignore: cast_nullable_to_non_nullable
+      drop_off_address: drop_off_address == freezed
+          ? _value.drop_off_address
+          : drop_off_address // ignore: cast_nullable_to_non_nullable
               as String,
       price: price == freezed
           ? _value.price
@@ -143,8 +143,8 @@ abstract class _$$_RideResponseCopyWith<$Res>
       Driver driver,
       String created,
       String updated,
-      String pickUpAddress,
-      String dropOffAddress,
+      String pick_up_address,
+      String drop_off_address,
       String price,
       String status,
       Passenger passenger});
@@ -172,8 +172,8 @@ class __$$_RideResponseCopyWithImpl<$Res>
     Object? driver = freezed,
     Object? created = freezed,
     Object? updated = freezed,
-    Object? pickUpAddress = freezed,
-    Object? dropOffAddress = freezed,
+    Object? pick_up_address = freezed,
+    Object? drop_off_address = freezed,
     Object? price = freezed,
     Object? status = freezed,
     Object? passenger = freezed,
@@ -195,13 +195,13 @@ class __$$_RideResponseCopyWithImpl<$Res>
           ? _value.updated
           : updated // ignore: cast_nullable_to_non_nullable
               as String,
-      pickUpAddress: pickUpAddress == freezed
-          ? _value.pickUpAddress
-          : pickUpAddress // ignore: cast_nullable_to_non_nullable
+      pick_up_address: pick_up_address == freezed
+          ? _value.pick_up_address
+          : pick_up_address // ignore: cast_nullable_to_non_nullable
               as String,
-      dropOffAddress: dropOffAddress == freezed
-          ? _value.dropOffAddress
-          : dropOffAddress // ignore: cast_nullable_to_non_nullable
+      drop_off_address: drop_off_address == freezed
+          ? _value.drop_off_address
+          : drop_off_address // ignore: cast_nullable_to_non_nullable
               as String,
       price: price == freezed
           ? _value.price
@@ -227,8 +227,8 @@ class _$_RideResponse implements _RideResponse {
       required this.driver,
       required this.created,
       required this.updated,
-      required this.pickUpAddress,
-      required this.dropOffAddress,
+      required this.pick_up_address,
+      required this.drop_off_address,
       required this.price,
       required this.status,
       required this.passenger});
@@ -245,9 +245,9 @@ class _$_RideResponse implements _RideResponse {
   @override
   final String updated;
   @override
-  final String pickUpAddress;
+  final String pick_up_address;
   @override
-  final String dropOffAddress;
+  final String drop_off_address;
   @override
   final String price;
   @override
@@ -257,7 +257,7 @@ class _$_RideResponse implements _RideResponse {
 
   @override
   String toString() {
-    return 'RideResponse(id: $id, driver: $driver, created: $created, updated: $updated, pickUpAddress: $pickUpAddress, dropOffAddress: $dropOffAddress, price: $price, status: $status, passenger: $passenger)';
+    return 'RideResponse(id: $id, driver: $driver, created: $created, updated: $updated, pick_up_address: $pick_up_address, drop_off_address: $drop_off_address, price: $price, status: $status, passenger: $passenger)';
   }
 
   @override
@@ -270,9 +270,9 @@ class _$_RideResponse implements _RideResponse {
             const DeepCollectionEquality().equals(other.created, created) &&
             const DeepCollectionEquality().equals(other.updated, updated) &&
             const DeepCollectionEquality()
-                .equals(other.pickUpAddress, pickUpAddress) &&
+                .equals(other.pick_up_address, pick_up_address) &&
             const DeepCollectionEquality()
-                .equals(other.dropOffAddress, dropOffAddress) &&
+                .equals(other.drop_off_address, drop_off_address) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality().equals(other.passenger, passenger));
@@ -286,8 +286,8 @@ class _$_RideResponse implements _RideResponse {
       const DeepCollectionEquality().hash(driver),
       const DeepCollectionEquality().hash(created),
       const DeepCollectionEquality().hash(updated),
-      const DeepCollectionEquality().hash(pickUpAddress),
-      const DeepCollectionEquality().hash(dropOffAddress),
+      const DeepCollectionEquality().hash(pick_up_address),
+      const DeepCollectionEquality().hash(drop_off_address),
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(passenger));
@@ -311,8 +311,8 @@ abstract class _RideResponse implements RideResponse {
       required final Driver driver,
       required final String created,
       required final String updated,
-      required final String pickUpAddress,
-      required final String dropOffAddress,
+      required final String pick_up_address,
+      required final String drop_off_address,
       required final String price,
       required final String status,
       required final Passenger passenger}) = _$_RideResponse;
@@ -329,9 +329,9 @@ abstract class _RideResponse implements RideResponse {
   @override
   String get updated;
   @override
-  String get pickUpAddress;
+  String get pick_up_address;
   @override
-  String get dropOffAddress;
+  String get drop_off_address;
   @override
   String get price;
   @override
@@ -353,8 +353,8 @@ mixin _$Driver {
   int get id => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get firstName => throw _privateConstructorUsedError;
-  String get lastName => throw _privateConstructorUsedError;
+  String get first_name => throw _privateConstructorUsedError;
+  String get last_name => throw _privateConstructorUsedError;
   String get group => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -370,8 +370,8 @@ abstract class $DriverCopyWith<$Res> {
       {int id,
       String username,
       String email,
-      String firstName,
-      String lastName,
+      String first_name,
+      String last_name,
       String group});
 }
 
@@ -388,8 +388,8 @@ class _$DriverCopyWithImpl<$Res> implements $DriverCopyWith<$Res> {
     Object? id = freezed,
     Object? username = freezed,
     Object? email = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? first_name = freezed,
+    Object? last_name = freezed,
     Object? group = freezed,
   }) {
     return _then(_value.copyWith(
@@ -405,13 +405,13 @@ class _$DriverCopyWithImpl<$Res> implements $DriverCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      first_name: first_name == freezed
+          ? _value.first_name
+          : first_name // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      last_name: last_name == freezed
+          ? _value.last_name
+          : last_name // ignore: cast_nullable_to_non_nullable
               as String,
       group: group == freezed
           ? _value.group
@@ -430,8 +430,8 @@ abstract class _$$_DriverCopyWith<$Res> implements $DriverCopyWith<$Res> {
       {int id,
       String username,
       String email,
-      String firstName,
-      String lastName,
+      String first_name,
+      String last_name,
       String group});
 }
 
@@ -449,8 +449,8 @@ class __$$_DriverCopyWithImpl<$Res> extends _$DriverCopyWithImpl<$Res>
     Object? id = freezed,
     Object? username = freezed,
     Object? email = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? first_name = freezed,
+    Object? last_name = freezed,
     Object? group = freezed,
   }) {
     return _then(_$_Driver(
@@ -466,13 +466,13 @@ class __$$_DriverCopyWithImpl<$Res> extends _$DriverCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      first_name: first_name == freezed
+          ? _value.first_name
+          : first_name // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      last_name: last_name == freezed
+          ? _value.last_name
+          : last_name // ignore: cast_nullable_to_non_nullable
               as String,
       group: group == freezed
           ? _value.group
@@ -489,8 +489,8 @@ class _$_Driver implements _Driver {
       {required this.id,
       required this.username,
       required this.email,
-      required this.firstName,
-      required this.lastName,
+      required this.first_name,
+      required this.last_name,
       required this.group});
 
   factory _$_Driver.fromJson(Map<String, dynamic> json) =>
@@ -503,15 +503,15 @@ class _$_Driver implements _Driver {
   @override
   final String email;
   @override
-  final String firstName;
+  final String first_name;
   @override
-  final String lastName;
+  final String last_name;
   @override
   final String group;
 
   @override
   String toString() {
-    return 'Driver(id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName, group: $group)';
+    return 'Driver(id: $id, username: $username, email: $email, first_name: $first_name, last_name: $last_name, group: $group)';
   }
 
   @override
@@ -522,8 +522,9 @@ class _$_Driver implements _Driver {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
+            const DeepCollectionEquality()
+                .equals(other.first_name, first_name) &&
+            const DeepCollectionEquality().equals(other.last_name, last_name) &&
             const DeepCollectionEquality().equals(other.group, group));
   }
 
@@ -534,8 +535,8 @@ class _$_Driver implements _Driver {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(first_name),
+      const DeepCollectionEquality().hash(last_name),
       const DeepCollectionEquality().hash(group));
 
   @JsonKey(ignore: true)
@@ -556,8 +557,8 @@ abstract class _Driver implements Driver {
       {required final int id,
       required final String username,
       required final String email,
-      required final String firstName,
-      required final String lastName,
+      required final String first_name,
+      required final String last_name,
       required final String group}) = _$_Driver;
 
   factory _Driver.fromJson(Map<String, dynamic> json) = _$_Driver.fromJson;
@@ -569,9 +570,9 @@ abstract class _Driver implements Driver {
   @override
   String get email;
   @override
-  String get firstName;
+  String get first_name;
   @override
-  String get lastName;
+  String get last_name;
   @override
   String get group;
   @override
@@ -588,15 +589,15 @@ Passenger _$PassengerFromJson(Map<String, dynamic> json) {
 mixin _$Passenger {
   int get id => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
-  bool get isSuperuser => throw _privateConstructorUsedError;
+  bool get is_superuser => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
-  String get firstName => throw _privateConstructorUsedError;
-  String get lastName => throw _privateConstructorUsedError;
+  String get first_name => throw _privateConstructorUsedError;
+  String get last_name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  bool get isStaff => throw _privateConstructorUsedError;
-  bool get isActive => throw _privateConstructorUsedError;
-  String get dateJoined => throw _privateConstructorUsedError;
-  List<int>? get groups => throw _privateConstructorUsedError;
+  bool get is_staff => throw _privateConstructorUsedError;
+  bool get is_active => throw _privateConstructorUsedError;
+  String get date_joined => throw _privateConstructorUsedError;
+  List<int> get groups => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -611,15 +612,15 @@ abstract class $PassengerCopyWith<$Res> {
   $Res call(
       {int id,
       String password,
-      bool isSuperuser,
+      bool is_superuser,
       String username,
-      String firstName,
-      String lastName,
+      String first_name,
+      String last_name,
       String email,
-      bool isStaff,
-      bool isActive,
-      String dateJoined,
-      List<int>? groups});
+      bool is_staff,
+      bool is_active,
+      String date_joined,
+      List<int> groups});
 }
 
 /// @nodoc
@@ -634,14 +635,14 @@ class _$PassengerCopyWithImpl<$Res> implements $PassengerCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? password = freezed,
-    Object? isSuperuser = freezed,
+    Object? is_superuser = freezed,
     Object? username = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? first_name = freezed,
+    Object? last_name = freezed,
     Object? email = freezed,
-    Object? isStaff = freezed,
-    Object? isActive = freezed,
-    Object? dateJoined = freezed,
+    Object? is_staff = freezed,
+    Object? is_active = freezed,
+    Object? date_joined = freezed,
     Object? groups = freezed,
   }) {
     return _then(_value.copyWith(
@@ -653,42 +654,42 @@ class _$PassengerCopyWithImpl<$Res> implements $PassengerCopyWith<$Res> {
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      isSuperuser: isSuperuser == freezed
-          ? _value.isSuperuser
-          : isSuperuser // ignore: cast_nullable_to_non_nullable
+      is_superuser: is_superuser == freezed
+          ? _value.is_superuser
+          : is_superuser // ignore: cast_nullable_to_non_nullable
               as bool,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      first_name: first_name == freezed
+          ? _value.first_name
+          : first_name // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      last_name: last_name == freezed
+          ? _value.last_name
+          : last_name // ignore: cast_nullable_to_non_nullable
               as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      isStaff: isStaff == freezed
-          ? _value.isStaff
-          : isStaff // ignore: cast_nullable_to_non_nullable
+      is_staff: is_staff == freezed
+          ? _value.is_staff
+          : is_staff // ignore: cast_nullable_to_non_nullable
               as bool,
-      isActive: isActive == freezed
-          ? _value.isActive
-          : isActive // ignore: cast_nullable_to_non_nullable
+      is_active: is_active == freezed
+          ? _value.is_active
+          : is_active // ignore: cast_nullable_to_non_nullable
               as bool,
-      dateJoined: dateJoined == freezed
-          ? _value.dateJoined
-          : dateJoined // ignore: cast_nullable_to_non_nullable
+      date_joined: date_joined == freezed
+          ? _value.date_joined
+          : date_joined // ignore: cast_nullable_to_non_nullable
               as String,
       groups: groups == freezed
           ? _value.groups
           : groups // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<int>,
     ));
   }
 }
@@ -702,15 +703,15 @@ abstract class _$$_PassengerCopyWith<$Res> implements $PassengerCopyWith<$Res> {
   $Res call(
       {int id,
       String password,
-      bool isSuperuser,
+      bool is_superuser,
       String username,
-      String firstName,
-      String lastName,
+      String first_name,
+      String last_name,
       String email,
-      bool isStaff,
-      bool isActive,
-      String dateJoined,
-      List<int>? groups});
+      bool is_staff,
+      bool is_active,
+      String date_joined,
+      List<int> groups});
 }
 
 /// @nodoc
@@ -727,14 +728,14 @@ class __$$_PassengerCopyWithImpl<$Res> extends _$PassengerCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? password = freezed,
-    Object? isSuperuser = freezed,
+    Object? is_superuser = freezed,
     Object? username = freezed,
-    Object? firstName = freezed,
-    Object? lastName = freezed,
+    Object? first_name = freezed,
+    Object? last_name = freezed,
     Object? email = freezed,
-    Object? isStaff = freezed,
-    Object? isActive = freezed,
-    Object? dateJoined = freezed,
+    Object? is_staff = freezed,
+    Object? is_active = freezed,
+    Object? date_joined = freezed,
     Object? groups = freezed,
   }) {
     return _then(_$_Passenger(
@@ -746,42 +747,42 @@ class __$$_PassengerCopyWithImpl<$Res> extends _$PassengerCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
-      isSuperuser: isSuperuser == freezed
-          ? _value.isSuperuser
-          : isSuperuser // ignore: cast_nullable_to_non_nullable
+      is_superuser: is_superuser == freezed
+          ? _value.is_superuser
+          : is_superuser // ignore: cast_nullable_to_non_nullable
               as bool,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      firstName: firstName == freezed
-          ? _value.firstName
-          : firstName // ignore: cast_nullable_to_non_nullable
+      first_name: first_name == freezed
+          ? _value.first_name
+          : first_name // ignore: cast_nullable_to_non_nullable
               as String,
-      lastName: lastName == freezed
-          ? _value.lastName
-          : lastName // ignore: cast_nullable_to_non_nullable
+      last_name: last_name == freezed
+          ? _value.last_name
+          : last_name // ignore: cast_nullable_to_non_nullable
               as String,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      isStaff: isStaff == freezed
-          ? _value.isStaff
-          : isStaff // ignore: cast_nullable_to_non_nullable
+      is_staff: is_staff == freezed
+          ? _value.is_staff
+          : is_staff // ignore: cast_nullable_to_non_nullable
               as bool,
-      isActive: isActive == freezed
-          ? _value.isActive
-          : isActive // ignore: cast_nullable_to_non_nullable
+      is_active: is_active == freezed
+          ? _value.is_active
+          : is_active // ignore: cast_nullable_to_non_nullable
               as bool,
-      dateJoined: dateJoined == freezed
-          ? _value.dateJoined
-          : dateJoined // ignore: cast_nullable_to_non_nullable
+      date_joined: date_joined == freezed
+          ? _value.date_joined
+          : date_joined // ignore: cast_nullable_to_non_nullable
               as String,
       groups: groups == freezed
           ? _value._groups
           : groups // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
+              as List<int>,
     ));
   }
 }
@@ -792,15 +793,15 @@ class _$_Passenger implements _Passenger {
   const _$_Passenger(
       {required this.id,
       required this.password,
-      required this.isSuperuser,
+      required this.is_superuser,
       required this.username,
-      required this.firstName,
-      required this.lastName,
+      required this.first_name,
+      required this.last_name,
       required this.email,
-      required this.isStaff,
-      required this.isActive,
-      required this.dateJoined,
-      final List<int>? groups})
+      required this.is_staff,
+      required this.is_active,
+      required this.date_joined,
+      required final List<int> groups})
       : _groups = groups;
 
   factory _$_Passenger.fromJson(Map<String, dynamic> json) =>
@@ -811,33 +812,31 @@ class _$_Passenger implements _Passenger {
   @override
   final String password;
   @override
-  final bool isSuperuser;
+  final bool is_superuser;
   @override
   final String username;
   @override
-  final String firstName;
+  final String first_name;
   @override
-  final String lastName;
+  final String last_name;
   @override
   final String email;
   @override
-  final bool isStaff;
+  final bool is_staff;
   @override
-  final bool isActive;
+  final bool is_active;
   @override
-  final String dateJoined;
-  final List<int>? _groups;
+  final String date_joined;
+  final List<int> _groups;
   @override
-  List<int>? get groups {
-    final value = _groups;
-    if (value == null) return null;
+  List<int> get groups {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_groups);
   }
 
   @override
   String toString() {
-    return 'Passenger(id: $id, password: $password, isSuperuser: $isSuperuser, username: $username, firstName: $firstName, lastName: $lastName, email: $email, isStaff: $isStaff, isActive: $isActive, dateJoined: $dateJoined, groups: $groups)';
+    return 'Passenger(id: $id, password: $password, is_superuser: $is_superuser, username: $username, first_name: $first_name, last_name: $last_name, email: $email, is_staff: $is_staff, is_active: $is_active, date_joined: $date_joined, groups: $groups)';
   }
 
   @override
@@ -848,15 +847,16 @@ class _$_Passenger implements _Passenger {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.password, password) &&
             const DeepCollectionEquality()
-                .equals(other.isSuperuser, isSuperuser) &&
+                .equals(other.is_superuser, is_superuser) &&
             const DeepCollectionEquality().equals(other.username, username) &&
-            const DeepCollectionEquality().equals(other.firstName, firstName) &&
-            const DeepCollectionEquality().equals(other.lastName, lastName) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.isStaff, isStaff) &&
-            const DeepCollectionEquality().equals(other.isActive, isActive) &&
             const DeepCollectionEquality()
-                .equals(other.dateJoined, dateJoined) &&
+                .equals(other.first_name, first_name) &&
+            const DeepCollectionEquality().equals(other.last_name, last_name) &&
+            const DeepCollectionEquality().equals(other.email, email) &&
+            const DeepCollectionEquality().equals(other.is_staff, is_staff) &&
+            const DeepCollectionEquality().equals(other.is_active, is_active) &&
+            const DeepCollectionEquality()
+                .equals(other.date_joined, date_joined) &&
             const DeepCollectionEquality().equals(other._groups, _groups));
   }
 
@@ -866,14 +866,14 @@ class _$_Passenger implements _Passenger {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(password),
-      const DeepCollectionEquality().hash(isSuperuser),
+      const DeepCollectionEquality().hash(is_superuser),
       const DeepCollectionEquality().hash(username),
-      const DeepCollectionEquality().hash(firstName),
-      const DeepCollectionEquality().hash(lastName),
+      const DeepCollectionEquality().hash(first_name),
+      const DeepCollectionEquality().hash(last_name),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(isStaff),
-      const DeepCollectionEquality().hash(isActive),
-      const DeepCollectionEquality().hash(dateJoined),
+      const DeepCollectionEquality().hash(is_staff),
+      const DeepCollectionEquality().hash(is_active),
+      const DeepCollectionEquality().hash(date_joined),
       const DeepCollectionEquality().hash(_groups));
 
   @JsonKey(ignore: true)
@@ -893,15 +893,15 @@ abstract class _Passenger implements Passenger {
   const factory _Passenger(
       {required final int id,
       required final String password,
-      required final bool isSuperuser,
+      required final bool is_superuser,
       required final String username,
-      required final String firstName,
-      required final String lastName,
+      required final String first_name,
+      required final String last_name,
       required final String email,
-      required final bool isStaff,
-      required final bool isActive,
-      required final String dateJoined,
-      final List<int>? groups}) = _$_Passenger;
+      required final bool is_staff,
+      required final bool is_active,
+      required final String date_joined,
+      required final List<int> groups}) = _$_Passenger;
 
   factory _Passenger.fromJson(Map<String, dynamic> json) =
       _$_Passenger.fromJson;
@@ -911,23 +911,23 @@ abstract class _Passenger implements Passenger {
   @override
   String get password;
   @override
-  bool get isSuperuser;
+  bool get is_superuser;
   @override
   String get username;
   @override
-  String get firstName;
+  String get first_name;
   @override
-  String get lastName;
+  String get last_name;
   @override
   String get email;
   @override
-  bool get isStaff;
+  bool get is_staff;
   @override
-  bool get isActive;
+  bool get is_active;
   @override
-  String get dateJoined;
+  String get date_joined;
   @override
-  List<int>? get groups;
+  List<int> get groups;
   @override
   @JsonKey(ignore: true)
   _$$_PassengerCopyWith<_$_Passenger> get copyWith =>

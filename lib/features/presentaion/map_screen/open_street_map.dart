@@ -241,10 +241,11 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                                     priceAmount = price;
                                   },
                                   onConfirmed: () {
+                                    final price = double.parse(priceAmount);
                                     final data = RideRequest(
                                       pick_up_address: _currentAddress.value,
                                       drop_off_address: destinationAddress,
-                                      price: double.parse(priceAmount),
+                                      price: price.toString(),
                                       status: 'REQUESTED',
                                     );
                                     log(data.toString());
@@ -314,7 +315,10 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
   late String _currentLocation;
   final currentL = TextEditingController();
   final searchL = TextEditingController();
-  final proceAmount = TextEditingController();
+  final priceAmount = TextEditingController();
+  final currentLFn = FocusNode();
+  final searchLFn = FocusNode();
+  final priceFn = FocusNode();
 
   final _formKey = GlobalKey<FormState>();
   ValueNotifier<String> _errorNotifier = ValueNotifier('');
@@ -330,6 +334,10 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
   void dispose() {
     currentL.dispose();
     searchL.dispose();
+    priceAmount.dispose();
+    currentLFn.dispose();
+    searchLFn.dispose();
+    priceFn.dispose();
     super.dispose();
   }
 
@@ -410,6 +418,7 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
                 TextFormField(
                   style: const TextStyle(fontSize: 12),
                   controller: currentL,
+                  focusNode: currentLFn,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Current Location',
@@ -423,10 +432,14 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
                     }
                     return null;
                   },
+                  onEditingComplete: () {
+                    FocusScope.of(context).requestFocus(searchLFn);
+                  },
                   onChanged: widget.currentLOnChanged,
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
+                  focusNode: searchLFn,
                   autofocus: true,
                   style: const TextStyle(fontSize: 12),
                   controller: searchL,
@@ -438,7 +451,7 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
                     contentPadding: EdgeInsets.all(18),
                   ),
                   onEditingComplete: () {
-                    FocusScope.of(context).unfocus();
+                    FocusScope.of(context).requestFocus(priceFn);
                   },
                   validator: (String? value) {
                     if (value!.isEmpty) {
@@ -450,9 +463,10 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
+                  focusNode: priceFn,
                   autofocus: true,
                   style: const TextStyle(fontSize: 12),
-                  controller: proceAmount,
+                  controller: priceAmount,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Price',

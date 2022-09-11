@@ -72,9 +72,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           context.showSnackBar(
             context,
             fail.errorMessage,
-            Icons.check_circle,
-            Colors.green,
+            Icons.error,
+            Colors.red,
           );
+          Navigator.of(context).pop();
         },
         orElse: () {},
       );

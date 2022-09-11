@@ -22,7 +22,7 @@ RideRequest _$RideRequestFromJson(Map<String, dynamic> json) {
 mixin _$RideRequest {
   String get pick_up_address => throw _privateConstructorUsedError;
   String get drop_off_address => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $RideRequestCopyWith<$Res> {
   $Res call(
       {String pick_up_address,
       String drop_off_address,
-      double price,
+      String price,
       String status});
 }
 
@@ -70,7 +70,7 @@ class _$RideRequestCopyWithImpl<$Res> implements $RideRequestCopyWith<$Res> {
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -89,7 +89,7 @@ abstract class _$$_RideRequestCopyWith<$Res>
   $Res call(
       {String pick_up_address,
       String drop_off_address,
-      double price,
+      String price,
       String status});
 }
 
@@ -122,7 +122,7 @@ class __$$_RideRequestCopyWithImpl<$Res> extends _$RideRequestCopyWithImpl<$Res>
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       status: status == freezed
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -148,7 +148,7 @@ class _$_RideRequest implements _RideRequest {
   @override
   final String drop_off_address;
   @override
-  final double price;
+  final String price;
   @override
   final String status;
 
@@ -196,7 +196,7 @@ abstract class _RideRequest implements RideRequest {
   const factory _RideRequest(
       {required final String pick_up_address,
       required final String drop_off_address,
-      required final double price,
+      required final String price,
       required final String status}) = _$_RideRequest;
 
   factory _RideRequest.fromJson(Map<String, dynamic> json) =
@@ -207,7 +207,7 @@ abstract class _RideRequest implements RideRequest {
   @override
   String get drop_off_address;
   @override
-  double get price;
+  String get price;
   @override
   String get status;
   @override

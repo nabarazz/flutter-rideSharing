@@ -125,11 +125,12 @@ class AuthRepository implements IAuthRepository {
         "status": rideRequest.status,
       };
       final userResponse = await _localDb.getAuthResponse();
+      final accessToken = userResponse?.access;
       final response = await http.post(
         url,
         headers: {
           'Accept': 'application/json',
-          'Authorization': 'Bearer ${userResponse?.access}',
+          'Authorization': 'Bearer $accessToken ',
         },
         body: requestBody,
       );
