@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:ridesharingv1/app/failure.dart';
 import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/ride_request/ride_request.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/ride_response/ride_response.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/signup_request/signup_request.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/signup_response/signup_response.dart';
 
@@ -21,6 +23,10 @@ abstract class IAuthRepository {
   });
   Future<Either<SignUpResponse, Failure>> userSignup({
     required SignUpRequest signUpRequest,
+  });
+
+  Future<Either<RideResponse, Failure>> rideRequest({
+    required RideRequest rideRequest,
   });
 }
 
@@ -93,20 +99,48 @@ class AuthRepository implements IAuthRepository {
       final parsed = json.decode(response.body);
       log(parsed.toString());
       final result = SignUpResponse.fromJson(parsed as Map<String, dynamic>);
-      // _localDb.cacheAuthResponse(
-      //   LoginResponse(
-      //     refresh: '',
-      //     access: '',
-      //     username: result.username,
-      //     email: result.email,
-      //     id: result.id,
-      //   ),
-      // );
       return Left(result);
     } catch (e) {
       return const Right(
         Failure(
           errorMessage: 'Something wen wrong !',
+          errorCode: '',
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<RideResponse, Failure>> rideRequest({
+    required RideRequest rideRequest,
+  }) async {
+    try {
+      final url = Uri.parse(
+        'http://20.24.200.114:8003/api/trip/',
+      );
+      var requestBody = {
+        "pick_up_address": rideRequest.pick_up_address,
+        "drop_off_address": rideRequest.drop_off_address,
+        "price": rideRequest.price,
+        "status": rideRequest.status,
+      };
+      final userResponse = await _localDb.getAuthResponse();
+      final response = await http.post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ${userResponse?.access}',
+        },
+        body: requestBody,
+      );
+      final parsed = json.decode(response.body);
+      log(parsed.toString());
+      final result = RideResponse.fromJson(parsed as Map<String, dynamic>);
+      return Left(result);
+    } catch (e) {
+      return const Right(
+        Failure(
+          errorMessage: 'Something went wrong !',
           errorCode: '',
         ),
       );

@@ -9,14 +9,14 @@ part 'ride_response.g.dart';
 class RideResponse with _$RideResponse {
   const factory RideResponse({
     required String id,
-    required String driver,
+    required Driver driver,
     required String created,
     required String updated,
     required String pickUpAddress,
     required String dropOffAddress,
     required String price,
     required String status,
-    required String passenger,
+    required Passenger passenger,
   }) = _RideResponse;
   factory RideResponse.fromJson(Map<String, dynamic> json) =>
       _$RideResponseFromJson(json);

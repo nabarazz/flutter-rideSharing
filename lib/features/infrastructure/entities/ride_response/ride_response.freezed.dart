@@ -21,14 +21,14 @@ RideResponse _$RideResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$RideResponse {
   String get id => throw _privateConstructorUsedError;
-  String get driver => throw _privateConstructorUsedError;
+  Driver get driver => throw _privateConstructorUsedError;
   String get created => throw _privateConstructorUsedError;
   String get updated => throw _privateConstructorUsedError;
   String get pickUpAddress => throw _privateConstructorUsedError;
   String get dropOffAddress => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  String get passenger => throw _privateConstructorUsedError;
+  Passenger get passenger => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,14 +43,17 @@ abstract class $RideResponseCopyWith<$Res> {
       _$RideResponseCopyWithImpl<$Res>;
   $Res call(
       {String id,
-      String driver,
+      Driver driver,
       String created,
       String updated,
       String pickUpAddress,
       String dropOffAddress,
       String price,
       String status,
-      String passenger});
+      Passenger passenger});
+
+  $DriverCopyWith<$Res> get driver;
+  $PassengerCopyWith<$Res> get passenger;
 }
 
 /// @nodoc
@@ -81,7 +84,7 @@ class _$RideResponseCopyWithImpl<$Res> implements $RideResponseCopyWith<$Res> {
       driver: driver == freezed
           ? _value.driver
           : driver // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Driver,
       created: created == freezed
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -109,8 +112,22 @@ class _$RideResponseCopyWithImpl<$Res> implements $RideResponseCopyWith<$Res> {
       passenger: passenger == freezed
           ? _value.passenger
           : passenger // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Passenger,
     ));
+  }
+
+  @override
+  $DriverCopyWith<$Res> get driver {
+    return $DriverCopyWith<$Res>(_value.driver, (value) {
+      return _then(_value.copyWith(driver: value));
+    });
+  }
+
+  @override
+  $PassengerCopyWith<$Res> get passenger {
+    return $PassengerCopyWith<$Res>(_value.passenger, (value) {
+      return _then(_value.copyWith(passenger: value));
+    });
   }
 }
 
@@ -123,14 +140,19 @@ abstract class _$$_RideResponseCopyWith<$Res>
   @override
   $Res call(
       {String id,
-      String driver,
+      Driver driver,
       String created,
       String updated,
       String pickUpAddress,
       String dropOffAddress,
       String price,
       String status,
-      String passenger});
+      Passenger passenger});
+
+  @override
+  $DriverCopyWith<$Res> get driver;
+  @override
+  $PassengerCopyWith<$Res> get passenger;
 }
 
 /// @nodoc
@@ -164,7 +186,7 @@ class __$$_RideResponseCopyWithImpl<$Res>
       driver: driver == freezed
           ? _value.driver
           : driver // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Driver,
       created: created == freezed
           ? _value.created
           : created // ignore: cast_nullable_to_non_nullable
@@ -192,7 +214,7 @@ class __$$_RideResponseCopyWithImpl<$Res>
       passenger: passenger == freezed
           ? _value.passenger
           : passenger // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Passenger,
     ));
   }
 }
@@ -217,7 +239,7 @@ class _$_RideResponse implements _RideResponse {
   @override
   final String id;
   @override
-  final String driver;
+  final Driver driver;
   @override
   final String created;
   @override
@@ -231,7 +253,7 @@ class _$_RideResponse implements _RideResponse {
   @override
   final String status;
   @override
-  final String passenger;
+  final Passenger passenger;
 
   @override
   String toString() {
@@ -286,14 +308,14 @@ class _$_RideResponse implements _RideResponse {
 abstract class _RideResponse implements RideResponse {
   const factory _RideResponse(
       {required final String id,
-      required final String driver,
+      required final Driver driver,
       required final String created,
       required final String updated,
       required final String pickUpAddress,
       required final String dropOffAddress,
       required final String price,
       required final String status,
-      required final String passenger}) = _$_RideResponse;
+      required final Passenger passenger}) = _$_RideResponse;
 
   factory _RideResponse.fromJson(Map<String, dynamic> json) =
       _$_RideResponse.fromJson;
@@ -301,7 +323,7 @@ abstract class _RideResponse implements RideResponse {
   @override
   String get id;
   @override
-  String get driver;
+  Driver get driver;
   @override
   String get created;
   @override
@@ -315,7 +337,7 @@ abstract class _RideResponse implements RideResponse {
   @override
   String get status;
   @override
-  String get passenger;
+  Passenger get passenger;
   @override
   @JsonKey(ignore: true)
   _$$_RideResponseCopyWith<_$_RideResponse> get copyWith =>

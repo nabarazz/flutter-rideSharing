@@ -9,14 +9,14 @@ part of 'ride_response.dart';
 _$_RideResponse _$$_RideResponseFromJson(Map<String, dynamic> json) =>
     _$_RideResponse(
       id: json['id'] as String,
-      driver: json['driver'] as String,
+      driver: Driver.fromJson(json['driver'] as Map<String, dynamic>),
       created: json['created'] as String,
       updated: json['updated'] as String,
       pickUpAddress: json['pickUpAddress'] as String,
       dropOffAddress: json['dropOffAddress'] as String,
       price: json['price'] as String,
       status: json['status'] as String,
-      passenger: json['passenger'] as String,
+      passenger: Passenger.fromJson(json['passenger'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_RideResponseToJson(_$_RideResponse instance) =>
