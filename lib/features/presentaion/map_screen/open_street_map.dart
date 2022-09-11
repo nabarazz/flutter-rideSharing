@@ -37,9 +37,11 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   late LoginResponse loginResponse;
   ValueNotifier<String> _currentAddress = ValueNotifier('');
   final _formKey = GlobalKey<FormState>();
+  late LatLng destinationLatLng = LatLng(0.0, 0.0);
 
   var destinationAddress = '';
   var priceAmount = '';
+
   @override
   void initState() {
     _currentAddress = ValueNotifier('');
@@ -58,10 +60,11 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
     await getAddress();
   }
 
-  void getLatLng() async {
+  void getLatLng(String destinationLocation) async {
     List<geocoding.Location> locations =
-        await geocoding.locationFromAddress("Imadol");
-    log('$locations');
+        await geocoding.locationFromAddress(destinationLocation);
+    destinationLatLng = LatLng(locations[0].latitude, locations[0].longitude);
+    log('destination location lat $destinationLatLng');
   }
 
   Future<void> getAddress() async {
@@ -135,6 +138,16 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
+    ref.listen<BaseState<dynamic>>(_rideRequestController, (oldState, state) {
+      state.maybeWhen(
+        loading: () {},
+        success: (_) async {
+          getLatLng(destinationAddress);
+        },
+        error: (fail) {},
+        orElse: () {},
+      );
+    });
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -187,6 +200,23 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                     ),
                   ],
                 ),
+                if (destinationLatLng.latitude != 0.0 &&
+                    destinationLatLng.latitude != 0.0)
+                  MarkerLayerOptions(
+                    markers: [
+                      Marker(
+                        width: 80.0,
+                        height: 80.0,
+                        point: destinationLatLng,
+                        builder: (ctx) => IconButton(
+                          icon: const Icon(Icons.location_on),
+                          color: Colors.green,
+                          iconSize: 45.0,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
               ],
             ),
             Container(
@@ -198,19 +228,29 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                 padding: const EdgeInsets.only(bottom: 20, top: 10),
                 child: Column(
                   children: [
-                    Text(
-                      _currentAddress.value,
-                      style: const TextStyle(fontSize: 12),
-                    ),
+                    if (_currentAddress.value.isNotEmpty)
+                      Text(
+                        'From: ${_currentAddress.value}',
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
                     const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.red,
+                        Column(
+                          children: const [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.red,
+                            ),
+                            Text(
+                              'From',
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
                         ),
                         InkWell(
                           onTap: () {
@@ -240,7 +280,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                                   priceLOnChanged: (price) {
                                     priceAmount = price;
                                   },
-                                  onConfirmed: () {
+                                  onConfirmed: () async {
                                     final price = double.parse(priceAmount);
                                     final data = RideRequest(
                                       pick_up_address: _currentAddress.value,
@@ -277,9 +317,27 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                             ),
                           ),
                         ),
-                        const Icon(Icons.local_taxi),
+                        Column(
+                          children: const [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.green,
+                            ),
+                            Text(
+                              'To',
+                              style: TextStyle(fontSize: 12),
+                            )
+                          ],
+                        ),
                       ],
                     ),
+                    const SizedBox(height: 10),
+                    if (destinationAddress.isNotEmpty)
+                      Text(
+                        'To: $destinationAddress',
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.w600),
+                      ),
                   ],
                 ),
               ),
