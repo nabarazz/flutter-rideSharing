@@ -342,7 +342,7 @@ class _ShowBSheetState extends ConsumerState<ShowBSheet> {
                 controller: widget.searchL,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Searched Location',
+                  labelText: 'Destination Location',
                   labelStyle: TextStyle(fontSize: 14),
                   isDense: true,
                   contentPadding: EdgeInsets.all(18),
