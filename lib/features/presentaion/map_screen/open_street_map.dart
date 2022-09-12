@@ -156,10 +156,13 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
           title: const Text('Ride Sharing'),
           actions: [
             IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
+              onPressed: () async {
+                final userData =
+                    await ref.read(localDataSourceNotifier).getAuthResponse();
+                // ignore: use_build_context_synchronously
+                await Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => const SettingScreen(),
+                    builder: (_) => SettingScreen(userData: userData!),
                   ),
                 );
               },
