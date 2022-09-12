@@ -1,11 +1,14 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ridesharingv1/core/base_state/base_state.dart';
 import 'package:ridesharingv1/core/extension/snack_bar_extension.dart';
 import 'package:ridesharingv1/features/application/ride_sharing_controller.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
 import 'package:ridesharingv1/features/presentaion/map_screen/open_street_map.dart';
 import 'package:ridesharingv1/features/presentaion/signup_screen/signup_screen.dart';
 
@@ -52,7 +55,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
           );
         },
-        success: (dynamic _) async {
+        success: (state) async {
           context.showSnackBar(
             context,
             'Login in success',
@@ -62,9 +65,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           _usernameController.clear();
           _passwordController.clear();
           Navigator.of(context).pop();
+
+          final data = state as LoginResponse;
+          log('$data');
           await Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (_) => const OpenStreetMapScreen(),
+              builder: (_) =>
+                  OpenStreetMapScreen(isDriver: data.group == 'driver'),
             ),
           );
         },

@@ -12,6 +12,7 @@ import 'package:ridesharingv1/core/extension/snack_bar_extension.dart';
 import 'package:ridesharingv1/features/application/ride_sharing_controller.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/ride_request/ride_request.dart';
+import 'package:ridesharingv1/features/presentaion/notification_screen/notification_screen.dart';
 import 'package:ridesharingv1/features/presentaion/settings/seting_screen.dart';
 
 final _rideRequestController = StateNotifierProvider<AuthController, BaseState>(
@@ -19,7 +20,9 @@ final _rideRequestController = StateNotifierProvider<AuthController, BaseState>(
 );
 
 class OpenStreetMapScreen extends ConsumerStatefulWidget {
-  const OpenStreetMapScreen({Key? key}) : super(key: key);
+  const OpenStreetMapScreen({Key? key, this.isDriver = false})
+      : super(key: key);
+  final bool isDriver;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -38,7 +41,6 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   ValueNotifier<String> _currentAddress = ValueNotifier('');
   final _formKey = GlobalKey<FormState>();
   late LatLng destinationLatLng = LatLng(0.0, 0.0);
-
   var destinationAddress = '';
   var priceAmount = '';
 
@@ -46,13 +48,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   void initState() {
     _currentAddress = ValueNotifier('');
     fetchData();
-
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   void fetchData() async {
@@ -212,7 +208,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                         height: 80.0,
                         point: destinationLatLng,
                         builder: (ctx) => IconButton(
-                          icon: const Icon(Icons.location_on),
+                          icon: const Icon(Icons.person),
                           color: Colors.green,
                           iconSize: 45.0,
                           onPressed: () {},
@@ -223,7 +219,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
               ],
             ),
             Container(
-              height: 130,
+              height: 140,
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
@@ -231,109 +227,143 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                 padding: const EdgeInsets.only(bottom: 20, top: 10),
                 child: Column(
                   children: [
+                    if (widget.isDriver) const Text('Your current Location'),
+                    const SizedBox(height: 5),
                     if (_currentAddress.value.isNotEmpty)
                       Text(
-                        'From: ${_currentAddress.value}',
+                        widget.isDriver
+                            ? _currentAddress.value
+                            : 'From: ${_currentAddress.value}',
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w600),
                       ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(
-                          children: const [
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.red,
-                            ),
-                            Text(
-                              'From',
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25),
-                                  topRight: Radius.circular(25),
+                    !widget.isDriver
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: const [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Colors.red,
+                                  ),
+                                  Text(
+                                    'From',
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(25),
+                                        topRight: Radius.circular(25),
+                                      ),
+                                    ),
+                                    barrierColor: Colors.transparent,
+                                    context: context,
+                                    elevation: 10,
+                                    isScrollControlled: true,
+                                    builder: (context) {
+                                      return ShowBSheet(
+                                        userCurrentL: _currentAddress.value,
+                                        currentLOnChanged: (currL) {
+                                          if (currL.isNotEmpty &&
+                                              _currentAddress.value != currL) {
+                                            _currentAddress.value = currL;
+                                          }
+                                        },
+                                        destinationLOnChanged: (desL) {
+                                          destinationAddress = desL;
+                                        },
+                                        priceLOnChanged: (price) {
+                                          priceAmount = price;
+                                        },
+                                        onConfirmed: () async {
+                                          final price =
+                                              double.parse(priceAmount);
+                                          final data = RideRequest(
+                                            pick_up_address:
+                                                _currentAddress.value,
+                                            drop_off_address:
+                                                destinationAddress,
+                                            price: price.toString(),
+                                            status: 'REQUESTED',
+                                          );
+                                          log(data.toString());
+                                          ref
+                                              .read(_rideRequestController
+                                                  .notifier)
+                                              .requestRide(rideRequest: data);
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey),
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: mediaQuery.width / 7,
+                                      vertical: 12,
+                                    ),
+                                    child: const Text(
+                                      'Search Destination',
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                              barrierColor: Colors.transparent,
-                              context: context,
-                              elevation: 10,
-                              isScrollControlled: true,
-                              builder: (context) {
-                                return ShowBSheet(
-                                  userCurrentL: _currentAddress.value,
-                                  currentLOnChanged: (currL) {
-                                    if (currL.isNotEmpty &&
-                                        _currentAddress.value != currL) {
-                                      _currentAddress.value = currL;
-                                    }
-                                  },
-                                  destinationLOnChanged: (desL) {
-                                    destinationAddress = desL;
-                                  },
-                                  priceLOnChanged: (price) {
-                                    priceAmount = price;
-                                  },
-                                  onConfirmed: () async {
-                                    final price = double.parse(priceAmount);
-                                    final data = RideRequest(
-                                      pick_up_address: _currentAddress.value,
-                                      drop_off_address: destinationAddress,
-                                      price: price.toString(),
-                                      status: 'REQUESTED',
-                                    );
-                                    log(data.toString());
-                                    ref
-                                        .read(_rideRequestController.notifier)
-                                        .requestRide(rideRequest: data);
-                                  },
-                                );
-                              },
-                            );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: mediaQuery.width / 7,
-                                vertical: 12,
+                              Column(
+                                children: const [
+                                  Icon(
+                                    Icons.location_on,
+                                    color: Colors.green,
+                                  ),
+                                  Text(
+                                    'To',
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
                               ),
-                              child: const Text(
-                                'Search Destination',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
+                            ],
+                          )
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) =>
+                                          const NotificationScreen()));
+                                },
+                                child: Row(
+                                  children: const [
+                                    Text(
+                                      'Go To Request Notification',
+                                    ),
+                                    SizedBox(width: 20),
+                                    Icon(
+                                      Icons.arrow_circle_right,
+                                      color: Colors.black,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
+                              const SizedBox(width: 20),
+                            ],
                           ),
-                        ),
-                        Column(
-                          children: const [
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.green,
-                            ),
-                            Text(
-                              'To',
-                              style: TextStyle(fontSize: 12),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
                     const SizedBox(height: 10),
                     if (destinationAddress.isNotEmpty)
                       Text(
@@ -344,7 +374,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                   ],
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
