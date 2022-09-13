@@ -20,6 +20,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     super.initState();
   }
 
+  /// splash screen to navigatte user according to their group and login state
   void getUserStatus() async {
     final userResponse =
         await ref.read(localDataSourceNotifier).getAuthResponse();

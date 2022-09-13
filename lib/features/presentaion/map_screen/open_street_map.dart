@@ -208,7 +208,7 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                         height: 80.0,
                         point: destinationLatLng,
                         builder: (ctx) => IconButton(
-                          icon: const Icon(Icons.person),
+                          icon: const Icon(Icons.location_on),
                           color: Colors.green,
                           iconSize: 45.0,
                           onPressed: () {},

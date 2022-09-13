@@ -122,7 +122,7 @@ class AuthRepository implements IAuthRepository {
   }) async {
     try {
       final url = Uri.parse(
-        'http://20.24.200.114:8003/api/passenger/',
+        'http://20.24.200.114:8003/api/trip/create/',
       );
       var requestBody = {
         "pick_up_address": rideRequest.pick_up_address,
