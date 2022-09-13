@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:ridesharingv1/app/failure.dart';
 import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
+import 'package:ridesharingv1/features/infrastructure/entities/request_list_response/request_list_response.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/ride_request/ride_request.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/ride_response/ride_response.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/signup_request/signup_request.dart';
@@ -28,6 +29,8 @@ abstract class IAuthRepository {
   Future<Either<RideResponse, Failure>> rideRequest({
     required RideRequest rideRequest,
   });
+
+  Future<Either<ResuestlistResponse, Failure>> requestList();
 }
 
 class AuthRepository implements IAuthRepository {
@@ -116,7 +119,7 @@ class AuthRepository implements IAuthRepository {
   }) async {
     try {
       final url = Uri.parse(
-        'http://20.24.200.114:8003/api/trip/',
+        'http://20.24.200.114:8003/api/passenger/',
       );
       var requestBody = {
         "pick_up_address": rideRequest.pick_up_address,
@@ -137,6 +140,36 @@ class AuthRepository implements IAuthRepository {
       final parsed = json.decode(response.body);
       log(parsed.toString());
       final result = RideResponse.fromJson(parsed as Map<String, dynamic>);
+      return Left(result);
+    } catch (e) {
+      return const Right(
+        Failure(
+          errorMessage: 'Something went wrong !',
+          errorCode: '',
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<ResuestlistResponse, Failure>> requestList() async {
+    try {
+      final url = Uri.parse(
+        'http://20.24.200.114:8003/api/trip/',
+      );
+
+      final userResponse = await _localDb.getAuthResponse();
+      final accessToken = userResponse?.access;
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $accessToken ',
+        },
+      );
+      final parsed = json.decode(response.body);
+      log(parsed.toString());
+      final result =
+          ResuestlistResponse.fromJson(parsed as Map<String, dynamic>);
       return Left(result);
     } catch (e) {
       return const Right(
