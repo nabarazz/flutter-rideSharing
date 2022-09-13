@@ -27,12 +27,14 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
             const SizedBox(
               height: 20,
             ),
-            const CircleAvatar(
+            CircleAvatar(
               radius: 60,
               backgroundColor: Colors.grey,
               child: Text(
-                'Passenger',
-                style: TextStyle(color: Colors.white),
+                (widget.userData.group == 'driver')
+                    ? 'Taxi owner'
+                    : 'Passenger',
+                style: const TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(height: 20),

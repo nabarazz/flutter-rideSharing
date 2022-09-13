@@ -24,28 +24,54 @@ class _NotificationScreenState extends ConsumerState<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(_requestListController);
+    // final state = ref.watch(_requestListController);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Request Notification'),
       ),
-      body: state.maybeMap(
-          loading: (_) => const CircularProgressIndicator(),
-          success: (state) {
-            final requestListResponse = state;
-            final data = requestListResponse.data;
-            return null;
-
-            // return ListView.separated(
-            //   itemCount: data.,
-            //   itemBuilder: itemBuilder,
-            //   separatorBuilder: separatorBuilder,
-
-            // );
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: ListView.separated(
+          itemCount: 2,
+          itemBuilder: (context, index) {
+            return Container(
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(14),
+              ),
+            );
           },
-          orElse: () {
-            return null;
-          }),
+          separatorBuilder: (context, as) {
+            return const Divider();
+          },
+        ),
+      ),
+      // body: state.maybeMap(
+      //   loading: (_) => const Center(child: CircularProgressIndicator()),
+      //   success: (state) {
+      //     final requestListResponse = state;
+      //     final data = requestListResponse.data;
+      //     return ListView.separated(
+      //       itemCount: 2,
+      //       itemBuilder: (context, index) {
+      //         return Container(
+      //           height: 100,
+      //           decoration: BoxDecoration(
+      //             color: Colors.blue,
+      //             borderRadius: BorderRadius.circular(14),
+      //           ),
+      //         );
+      //       },
+      //       separatorBuilder: (context, as) {
+      //         return const Divider();
+      //       },
+      //     );
+      //   },
+      //   orElse: () {
+      //     return null;
+      //   },
+      // ),
     );
   }
 }
