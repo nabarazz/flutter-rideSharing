@@ -20,6 +20,7 @@ class AuthController<T> extends StateNotifier<BaseState> {
 
   IAuthRepository get _authRepository => _read(authRepository);
 
+  /// servive controller for user login
   Future<void> userLogin({
     required String username,
     required String password,
@@ -38,6 +39,7 @@ class AuthController<T> extends StateNotifier<BaseState> {
     );
   }
 
+  /// service controller for user sign up
   Future<void> newUserSignUp({
     required SignUpRequest signUpRequest,
   }) async {
@@ -54,6 +56,7 @@ class AuthController<T> extends StateNotifier<BaseState> {
     );
   }
 
+  /// service controller for request ride
   Future<void> requestRide({
     required RideRequest rideRequest,
   }) async {
@@ -70,6 +73,7 @@ class AuthController<T> extends StateNotifier<BaseState> {
     );
   }
 
+  ///service controller to get all request list
   Future<void> getRequestList() async {
     state = const BaseState.loading();
 

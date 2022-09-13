@@ -39,6 +39,7 @@ class AuthRepository implements IAuthRepository {
   final Reader _read;
   HiveDataSource get _localDb => _read(localDataSourceNotifier);
 
+  /// userlogin business logic
   @override
   Future<Either<LoginResponse, Failure>> userLogin({
     required String username,
@@ -75,6 +76,7 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
+  /// new user sign up business logic
   @override
   Future<Either<SignUpResponse, Failure>> userSignup({
     required SignUpRequest signUpRequest,
@@ -113,6 +115,7 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
+  /// ride requesting by passenger business logic
   @override
   Future<Either<RideResponse, Failure>> rideRequest({
     required RideRequest rideRequest,
@@ -151,6 +154,7 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
+  /// geeting all passenger request list business logic
   @override
   Future<Either<ResuestlistResponse, Failure>> requestList() async {
     try {
