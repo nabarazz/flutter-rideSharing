@@ -15,8 +15,6 @@ _$_RideResponse _$$_RideResponseFromJson(Map<String, dynamic> json) =>
       drop_off_address: json['drop_off_address'] as String,
       price: json['price'] as String,
       status: json['status'] as String,
-      email: json['email'] as String,
-      username: json['username'] as String,
     );
 
 Map<String, dynamic> _$$_RideResponseToJson(_$_RideResponse instance) =>
@@ -28,6 +26,4 @@ Map<String, dynamic> _$$_RideResponseToJson(_$_RideResponse instance) =>
       'drop_off_address': instance.drop_off_address,
       'price': instance.price,
       'status': instance.status,
-      'email': instance.email,
-      'username': instance.username,
     };

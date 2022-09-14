@@ -15,8 +15,6 @@ class RideResponse with _$RideResponse {
     required String drop_off_address,
     required String price,
     required String status,
-    required String email,
-    required String username,
   }) = _RideResponse;
   factory RideResponse.fromJson(Map<String, dynamic> json) =>
       _$RideResponseFromJson(json);

@@ -27,8 +27,6 @@ mixin _$RideResponse {
   String get drop_off_address => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,9 +46,7 @@ abstract class $RideResponseCopyWith<$Res> {
       String pick_up_address,
       String drop_off_address,
       String price,
-      String status,
-      String email,
-      String username});
+      String status});
 }
 
 /// @nodoc
@@ -70,8 +66,6 @@ class _$RideResponseCopyWithImpl<$Res> implements $RideResponseCopyWith<$Res> {
     Object? drop_off_address = freezed,
     Object? price = freezed,
     Object? status = freezed,
-    Object? email = freezed,
-    Object? username = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -102,14 +96,6 @@ class _$RideResponseCopyWithImpl<$Res> implements $RideResponseCopyWith<$Res> {
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: username == freezed
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -128,9 +114,7 @@ abstract class _$$_RideResponseCopyWith<$Res>
       String pick_up_address,
       String drop_off_address,
       String price,
-      String status,
-      String email,
-      String username});
+      String status});
 }
 
 /// @nodoc
@@ -153,8 +137,6 @@ class __$$_RideResponseCopyWithImpl<$Res>
     Object? drop_off_address = freezed,
     Object? price = freezed,
     Object? status = freezed,
-    Object? email = freezed,
-    Object? username = freezed,
   }) {
     return _then(_$_RideResponse(
       id: id == freezed
@@ -185,14 +167,6 @@ class __$$_RideResponseCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      email: email == freezed
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-      username: username == freezed
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -207,9 +181,7 @@ class _$_RideResponse implements _RideResponse {
       required this.pick_up_address,
       required this.drop_off_address,
       required this.price,
-      required this.status,
-      required this.email,
-      required this.username});
+      required this.status});
 
   factory _$_RideResponse.fromJson(Map<String, dynamic> json) =>
       _$$_RideResponseFromJson(json);
@@ -228,14 +200,10 @@ class _$_RideResponse implements _RideResponse {
   final String price;
   @override
   final String status;
-  @override
-  final String email;
-  @override
-  final String username;
 
   @override
   String toString() {
-    return 'RideResponse(id: $id, created: $created, updated: $updated, pick_up_address: $pick_up_address, drop_off_address: $drop_off_address, price: $price, status: $status, email: $email, username: $username)';
+    return 'RideResponse(id: $id, created: $created, updated: $updated, pick_up_address: $pick_up_address, drop_off_address: $drop_off_address, price: $price, status: $status)';
   }
 
   @override
@@ -251,9 +219,7 @@ class _$_RideResponse implements _RideResponse {
             const DeepCollectionEquality()
                 .equals(other.drop_off_address, drop_off_address) &&
             const DeepCollectionEquality().equals(other.price, price) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality().equals(other.email, email) &&
-            const DeepCollectionEquality().equals(other.username, username));
+            const DeepCollectionEquality().equals(other.status, status));
   }
 
   @JsonKey(ignore: true)
@@ -266,9 +232,7 @@ class _$_RideResponse implements _RideResponse {
       const DeepCollectionEquality().hash(pick_up_address),
       const DeepCollectionEquality().hash(drop_off_address),
       const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(username));
+      const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
   @override
@@ -291,9 +255,7 @@ abstract class _RideResponse implements RideResponse {
       required final String pick_up_address,
       required final String drop_off_address,
       required final String price,
-      required final String status,
-      required final String email,
-      required final String username}) = _$_RideResponse;
+      required final String status}) = _$_RideResponse;
 
   factory _RideResponse.fromJson(Map<String, dynamic> json) =
       _$_RideResponse.fromJson;
@@ -312,10 +274,6 @@ abstract class _RideResponse implements RideResponse {
   String get price;
   @override
   String get status;
-  @override
-  String get email;
-  @override
-  String get username;
   @override
   @JsonKey(ignore: true)
   _$$_RideResponseCopyWith<_$_RideResponse> get copyWith =>
