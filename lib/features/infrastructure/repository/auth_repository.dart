@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:ridesharingv1/app/failure.dart';
 import 'package:ridesharingv1/app/local_db/local_db_notifier.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/login_response/login_response.dart';
-import 'package:ridesharingv1/features/infrastructure/entities/request_list_response/request_list_response.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/ride_request/ride_request.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/ride_response/ride_response.dart';
 import 'package:ridesharingv1/features/infrastructure/entities/signup_request/signup_request.dart';
@@ -30,7 +29,7 @@ abstract class IAuthRepository {
     required RideRequest rideRequest,
   });
 
-  Future<Either<ResuestlistResponse, Failure>> requestList();
+  Future<Either<Unit, Failure>> requestList();
 }
 
 class AuthRepository implements IAuthRepository {
@@ -156,7 +155,7 @@ class AuthRepository implements IAuthRepository {
 
   /// geeting all passenger request list business logic
   @override
-  Future<Either<ResuestlistResponse, Failure>> requestList() async {
+  Future<Either<Unit, Failure>> requestList() async {
     try {
       final url = Uri.parse(
         'http://20.24.200.114:8003/api/trip/',
@@ -170,11 +169,8 @@ class AuthRepository implements IAuthRepository {
           'Authorization': 'Bearer $accessToken ',
         },
       );
-      final parsed = json.decode(response.body);
-      log(parsed.toString());
-      final result =
-          ResuestlistResponse.fromJson(parsed as Map<String, dynamic>);
-      return Left(result);
+      log(response.toString());
+      return const Left(unit);
     } catch (e) {
       return const Right(
         Failure(

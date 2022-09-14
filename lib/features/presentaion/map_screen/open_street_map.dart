@@ -19,6 +19,23 @@ final _rideRequestController = StateNotifierProvider<AuthController, BaseState>(
   authController,
 );
 
+class RequestLatLng {
+  RequestLatLng({
+    required this.lat1,
+    required this.lng1,
+    required this.lat2,
+    required this.lng2,
+    required this.from,
+    required this.to,
+  });
+  final double lat1;
+  final double lng1;
+  final double lat2;
+  final double lng2;
+  final String from;
+  final String to;
+}
+
 class OpenStreetMapScreen extends ConsumerStatefulWidget {
   const OpenStreetMapScreen({Key? key, this.isDriver = false})
       : super(key: key);
@@ -41,8 +58,12 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
   ValueNotifier<String> _currentAddress = ValueNotifier('');
   final _formKey = GlobalKey<FormState>();
   late LatLng destinationLatLng = LatLng(0.0, 0.0);
+  late LatLng latLng1 = LatLng(0.0, 0.0);
+  late LatLng latLng2 = LatLng(0.0, 0.0);
   var destinationAddress = '';
   var priceAmount = '';
+  var latLng1Address = '';
+  var latLng2Address = '';
 
   @override
   void initState() {
@@ -216,10 +237,42 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                       ),
                     ],
                   ),
+                if (latLng1.latitude != 0.0 && latLng1.latitude != 0.0)
+                  MarkerLayerOptions(
+                    markers: [
+                      Marker(
+                        width: 80.0,
+                        height: 80.0,
+                        point: latLng1,
+                        builder: (ctx) => IconButton(
+                          icon: const Icon(Icons.location_on),
+                          color: Colors.white,
+                          iconSize: 45.0,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                if (latLng2.latitude != 0.0 && latLng2.latitude != 0.0)
+                  MarkerLayerOptions(
+                    markers: [
+                      Marker(
+                        width: 80.0,
+                        height: 80.0,
+                        point: latLng2,
+                        builder: (ctx) => IconButton(
+                          icon: const Icon(Icons.location_on),
+                          color: Colors.orange,
+                          iconSize: 45.0,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
               ],
             ),
             Container(
-              height: 140,
+              height: 170,
               decoration: const BoxDecoration(
                 color: Colors.white,
               ),
@@ -343,23 +396,83 @@ class _OpenStreetMapScreenState extends ConsumerState<OpenStreetMapScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) =>
-                                          const NotificationScreen()));
+                                onPressed: () async {
+                                  if (latLng1Address.isEmpty ||
+                                      latLng2Address.isEmpty) {
+                                    final data = await Navigator.of(context)
+                                        .push<RequestLatLng>(
+                                      MaterialPageRoute(
+                                        builder: (_) =>
+                                            const NotificationScreen(),
+                                      ),
+                                    );
+                                    latLng1Address = data?.from ?? '';
+                                    latLng2Address = data?.to ?? '';
+
+                                    latLng1 = LatLng(
+                                        data?.lat1 ?? 0.0, data?.lng1 ?? 0.0);
+                                    latLng2 = LatLng(
+                                        data?.lat2 ?? 0.0, data?.lng2 ?? 0.0);
+                                  } else {
+                                    context.showSnackBar(
+                                      context,
+                                      'You already have one accepted ride request',
+                                      Icons.check_circle,
+                                      Colors.green,
+                                    );
+                                  }
                                 },
-                                child: Row(
-                                  children: const [
-                                    Text(
-                                      'Go To Request Notification',
-                                    ),
-                                    SizedBox(width: 20),
-                                    Icon(
-                                      Icons.arrow_circle_right,
-                                      color: Colors.black,
-                                    ),
-                                  ],
-                                ),
+                                child: (latLng1.latitude == 0.0 &&
+                                        latLng1.latitude == 0.0)
+                                    ? Row(
+                                        children: const [
+                                          Text(
+                                            'Go To Request Notification',
+                                          ),
+                                          SizedBox(width: 20),
+                                          Icon(
+                                            Icons.arrow_circle_right,
+                                            color: Colors.black,
+                                          ),
+                                        ],
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Text('From: $latLng1Address'),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Column(
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.location_on,
+                                                      color: Colors.white,
+                                                    ),
+                                                    Text('Form'),
+                                                  ],
+                                                ),
+                                                const SizedBox(width: 40),
+                                                Column(
+                                                  children: const [
+                                                    Icon(
+                                                      Icons.location_on,
+                                                      color: Colors.orange,
+                                                    ),
+                                                    Text('To'),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text('To: $latLng2Address'),
+                                          ],
+                                        ),
+                                      ),
                               ),
                               const SizedBox(width: 20),
                             ],

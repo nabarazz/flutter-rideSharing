@@ -8,6 +8,15 @@ part 'request_list_response.g.dart';
 @freezed
 class ResuestlistResponse with _$ResuestlistResponse {
   const factory ResuestlistResponse({
+    required List<ResuestlistResponse> reuestedRideData,
+  }) = _ResuestlistResponse;
+  factory ResuestlistResponse.fromJson(Map<String, dynamic> json) =>
+      _$ResuestlistResponseFromJson(json);
+}
+
+@freezed
+class Resuestlist with _$Resuestlist {
+  const factory Resuestlist({
     required String id,
     required String created,
     required String updated,
@@ -15,7 +24,7 @@ class ResuestlistResponse with _$ResuestlistResponse {
     required String drop_off_address,
     required String price,
     required String status,
-  }) = _ResuestlistResponse;
-  factory ResuestlistResponse.fromJson(Map<String, dynamic> json) =>
-      _$ResuestlistResponseFromJson(json);
+  }) = _Resuestlist;
+  factory Resuestlist.fromJson(Map<String, dynamic> json) =>
+      _$ResuestlistFromJson(json);
 }

@@ -20,13 +20,8 @@ ResuestlistResponse _$ResuestlistResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ResuestlistResponse {
-  String get id => throw _privateConstructorUsedError;
-  String get created => throw _privateConstructorUsedError;
-  String get updated => throw _privateConstructorUsedError;
-  String get pick_up_address => throw _privateConstructorUsedError;
-  String get drop_off_address => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
+  List<ResuestlistResponse> get reuestedRideData =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,6 +34,156 @@ abstract class $ResuestlistResponseCopyWith<$Res> {
   factory $ResuestlistResponseCopyWith(
           ResuestlistResponse value, $Res Function(ResuestlistResponse) then) =
       _$ResuestlistResponseCopyWithImpl<$Res>;
+  $Res call({List<ResuestlistResponse> reuestedRideData});
+}
+
+/// @nodoc
+class _$ResuestlistResponseCopyWithImpl<$Res>
+    implements $ResuestlistResponseCopyWith<$Res> {
+  _$ResuestlistResponseCopyWithImpl(this._value, this._then);
+
+  final ResuestlistResponse _value;
+  // ignore: unused_field
+  final $Res Function(ResuestlistResponse) _then;
+
+  @override
+  $Res call({
+    Object? reuestedRideData = freezed,
+  }) {
+    return _then(_value.copyWith(
+      reuestedRideData: reuestedRideData == freezed
+          ? _value.reuestedRideData
+          : reuestedRideData // ignore: cast_nullable_to_non_nullable
+              as List<ResuestlistResponse>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_ResuestlistResponseCopyWith<$Res>
+    implements $ResuestlistResponseCopyWith<$Res> {
+  factory _$$_ResuestlistResponseCopyWith(_$_ResuestlistResponse value,
+          $Res Function(_$_ResuestlistResponse) then) =
+      __$$_ResuestlistResponseCopyWithImpl<$Res>;
+  @override
+  $Res call({List<ResuestlistResponse> reuestedRideData});
+}
+
+/// @nodoc
+class __$$_ResuestlistResponseCopyWithImpl<$Res>
+    extends _$ResuestlistResponseCopyWithImpl<$Res>
+    implements _$$_ResuestlistResponseCopyWith<$Res> {
+  __$$_ResuestlistResponseCopyWithImpl(_$_ResuestlistResponse _value,
+      $Res Function(_$_ResuestlistResponse) _then)
+      : super(_value, (v) => _then(v as _$_ResuestlistResponse));
+
+  @override
+  _$_ResuestlistResponse get _value => super._value as _$_ResuestlistResponse;
+
+  @override
+  $Res call({
+    Object? reuestedRideData = freezed,
+  }) {
+    return _then(_$_ResuestlistResponse(
+      reuestedRideData: reuestedRideData == freezed
+          ? _value._reuestedRideData
+          : reuestedRideData // ignore: cast_nullable_to_non_nullable
+              as List<ResuestlistResponse>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ResuestlistResponse implements _ResuestlistResponse {
+  const _$_ResuestlistResponse(
+      {required final List<ResuestlistResponse> reuestedRideData})
+      : _reuestedRideData = reuestedRideData;
+
+  factory _$_ResuestlistResponse.fromJson(Map<String, dynamic> json) =>
+      _$$_ResuestlistResponseFromJson(json);
+
+  final List<ResuestlistResponse> _reuestedRideData;
+  @override
+  List<ResuestlistResponse> get reuestedRideData {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_reuestedRideData);
+  }
+
+  @override
+  String toString() {
+    return 'ResuestlistResponse(reuestedRideData: $reuestedRideData)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ResuestlistResponse &&
+            const DeepCollectionEquality()
+                .equals(other._reuestedRideData, _reuestedRideData));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_reuestedRideData));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_ResuestlistResponseCopyWith<_$_ResuestlistResponse> get copyWith =>
+      __$$_ResuestlistResponseCopyWithImpl<_$_ResuestlistResponse>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ResuestlistResponseToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ResuestlistResponse implements ResuestlistResponse {
+  const factory _ResuestlistResponse(
+          {required final List<ResuestlistResponse> reuestedRideData}) =
+      _$_ResuestlistResponse;
+
+  factory _ResuestlistResponse.fromJson(Map<String, dynamic> json) =
+      _$_ResuestlistResponse.fromJson;
+
+  @override
+  List<ResuestlistResponse> get reuestedRideData;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ResuestlistResponseCopyWith<_$_ResuestlistResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Resuestlist _$ResuestlistFromJson(Map<String, dynamic> json) {
+  return _Resuestlist.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Resuestlist {
+  String get id => throw _privateConstructorUsedError;
+  String get created => throw _privateConstructorUsedError;
+  String get updated => throw _privateConstructorUsedError;
+  String get pick_up_address => throw _privateConstructorUsedError;
+  String get drop_off_address => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ResuestlistCopyWith<Resuestlist> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResuestlistCopyWith<$Res> {
+  factory $ResuestlistCopyWith(
+          Resuestlist value, $Res Function(Resuestlist) then) =
+      _$ResuestlistCopyWithImpl<$Res>;
   $Res call(
       {String id,
       String created,
@@ -50,13 +195,12 @@ abstract class $ResuestlistResponseCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ResuestlistResponseCopyWithImpl<$Res>
-    implements $ResuestlistResponseCopyWith<$Res> {
-  _$ResuestlistResponseCopyWithImpl(this._value, this._then);
+class _$ResuestlistCopyWithImpl<$Res> implements $ResuestlistCopyWith<$Res> {
+  _$ResuestlistCopyWithImpl(this._value, this._then);
 
-  final ResuestlistResponse _value;
+  final Resuestlist _value;
   // ignore: unused_field
-  final $Res Function(ResuestlistResponse) _then;
+  final $Res Function(Resuestlist) _then;
 
   @override
   $Res call({
@@ -102,11 +246,11 @@ class _$ResuestlistResponseCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$$_ResuestlistResponseCopyWith<$Res>
-    implements $ResuestlistResponseCopyWith<$Res> {
-  factory _$$_ResuestlistResponseCopyWith(_$_ResuestlistResponse value,
-          $Res Function(_$_ResuestlistResponse) then) =
-      __$$_ResuestlistResponseCopyWithImpl<$Res>;
+abstract class _$$_ResuestlistCopyWith<$Res>
+    implements $ResuestlistCopyWith<$Res> {
+  factory _$$_ResuestlistCopyWith(
+          _$_Resuestlist value, $Res Function(_$_Resuestlist) then) =
+      __$$_ResuestlistCopyWithImpl<$Res>;
   @override
   $Res call(
       {String id,
@@ -119,15 +263,14 @@ abstract class _$$_ResuestlistResponseCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ResuestlistResponseCopyWithImpl<$Res>
-    extends _$ResuestlistResponseCopyWithImpl<$Res>
-    implements _$$_ResuestlistResponseCopyWith<$Res> {
-  __$$_ResuestlistResponseCopyWithImpl(_$_ResuestlistResponse _value,
-      $Res Function(_$_ResuestlistResponse) _then)
-      : super(_value, (v) => _then(v as _$_ResuestlistResponse));
+class __$$_ResuestlistCopyWithImpl<$Res> extends _$ResuestlistCopyWithImpl<$Res>
+    implements _$$_ResuestlistCopyWith<$Res> {
+  __$$_ResuestlistCopyWithImpl(
+      _$_Resuestlist _value, $Res Function(_$_Resuestlist) _then)
+      : super(_value, (v) => _then(v as _$_Resuestlist));
 
   @override
-  _$_ResuestlistResponse get _value => super._value as _$_ResuestlistResponse;
+  _$_Resuestlist get _value => super._value as _$_Resuestlist;
 
   @override
   $Res call({
@@ -139,7 +282,7 @@ class __$$_ResuestlistResponseCopyWithImpl<$Res>
     Object? price = freezed,
     Object? status = freezed,
   }) {
-    return _then(_$_ResuestlistResponse(
+    return _then(_$_Resuestlist(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -174,8 +317,8 @@ class __$$_ResuestlistResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ResuestlistResponse implements _ResuestlistResponse {
-  const _$_ResuestlistResponse(
+class _$_Resuestlist implements _Resuestlist {
+  const _$_Resuestlist(
       {required this.id,
       required this.created,
       required this.updated,
@@ -184,8 +327,8 @@ class _$_ResuestlistResponse implements _ResuestlistResponse {
       required this.price,
       required this.status});
 
-  factory _$_ResuestlistResponse.fromJson(Map<String, dynamic> json) =>
-      _$$_ResuestlistResponseFromJson(json);
+  factory _$_Resuestlist.fromJson(Map<String, dynamic> json) =>
+      _$$_ResuestlistFromJson(json);
 
   @override
   final String id;
@@ -204,14 +347,14 @@ class _$_ResuestlistResponse implements _ResuestlistResponse {
 
   @override
   String toString() {
-    return 'ResuestlistResponse(id: $id, created: $created, updated: $updated, pick_up_address: $pick_up_address, drop_off_address: $drop_off_address, price: $price, status: $status)';
+    return 'Resuestlist(id: $id, created: $created, updated: $updated, pick_up_address: $pick_up_address, drop_off_address: $drop_off_address, price: $price, status: $status)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ResuestlistResponse &&
+            other is _$_Resuestlist &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.created, created) &&
             const DeepCollectionEquality().equals(other.updated, updated) &&
@@ -237,30 +380,29 @@ class _$_ResuestlistResponse implements _ResuestlistResponse {
 
   @JsonKey(ignore: true)
   @override
-  _$$_ResuestlistResponseCopyWith<_$_ResuestlistResponse> get copyWith =>
-      __$$_ResuestlistResponseCopyWithImpl<_$_ResuestlistResponse>(
-          this, _$identity);
+  _$$_ResuestlistCopyWith<_$_Resuestlist> get copyWith =>
+      __$$_ResuestlistCopyWithImpl<_$_Resuestlist>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ResuestlistResponseToJson(
+    return _$$_ResuestlistToJson(
       this,
     );
   }
 }
 
-abstract class _ResuestlistResponse implements ResuestlistResponse {
-  const factory _ResuestlistResponse(
+abstract class _Resuestlist implements Resuestlist {
+  const factory _Resuestlist(
       {required final String id,
       required final String created,
       required final String updated,
       required final String pick_up_address,
       required final String drop_off_address,
       required final String price,
-      required final String status}) = _$_ResuestlistResponse;
+      required final String status}) = _$_Resuestlist;
 
-  factory _ResuestlistResponse.fromJson(Map<String, dynamic> json) =
-      _$_ResuestlistResponse.fromJson;
+  factory _Resuestlist.fromJson(Map<String, dynamic> json) =
+      _$_Resuestlist.fromJson;
 
   @override
   String get id;
@@ -278,6 +420,6 @@ abstract class _ResuestlistResponse implements ResuestlistResponse {
   String get status;
   @override
   @JsonKey(ignore: true)
-  _$$_ResuestlistResponseCopyWith<_$_ResuestlistResponse> get copyWith =>
+  _$$_ResuestlistCopyWith<_$_Resuestlist> get copyWith =>
       throw _privateConstructorUsedError;
 }
